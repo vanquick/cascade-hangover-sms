@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cascade Hangover League — Get to Know You</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+        }
+        .header h1 {
+            font-size: 2em;
+            color: #fff;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .header .subtitle {
+            font-size: 1.1em;
+            color: #a0b4d0;
+            line-height: 1.5;
+        }
+        .header .emoji-bar {
+            font-size: 2em;
+            margin-top: 12px;
+        }
+        form {
+            background: rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 32px 28px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #64b5f6;
+            margin: 28px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(100,181,246,0.2);
+        }
+        .section-title:first-of-type { margin-top: 0; }
+        .field {
+            margin-bottom: 22px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            color: #d0d8e8;
+        }
+        label .hint {
+            font-weight: 400;
+            color: #8899aa;
+            font-size: 0.88em;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #64b5f6;
+            box-shadow: 0 0 0 3px rgba(100,181,246,0.2);
+        }
+        textarea { resize: vertical; min-height: 80px; }
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.04);
+            color: #a0b4d0;
+            cursor: pointer;
+        }
+        input[type="file"]:hover {
+            border-color: #64b5f6;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.04);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .radio-option:hover { background: rgba(255,255,255,0.08); }
+        .radio-option input[type="radio"] {
+            margin-top: 3px;
+            accent-color: #64b5f6;
+        }
+        .radio-option span { font-size: 0.92em; }
+        .radio-option .strategy-name { font-weight: 600; color: #e0e0e0; }
+        .radio-option .strategy-desc { color: #8899aa; font-size: 0.85em; }
+        button[type="submit"] {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1e88e5, #42a5f5);
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 28px;
+            transition: transform 0.1s, box-shadow 0.2s;
+        }
+        button[type="submit"]:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(30,136,229,0.4);
+        }
+        button[type="submit"]:active { transform: translateY(0); }
+        .required::after {
+            content: " *";
+            color: #ef5350;
+        }
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.5em; }
+            form { padding: 24px 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="emoji-bar">🏈🍻🏆</div>
+            <h1>The Cascade Hangover League</h1>
+            <p class="subtitle">Get to Know You Survey — for the league intro video.<br>Takes about 5 minutes. Be honest. Be funny. Be you.</p>
+        </div>
+
+        <form action="https://formsubmit.co/vanquicktech@gmail.com" method="POST" enctype="multipart/form-data">
+            <!-- FormSubmit config -->
+            <input type="hidden" name="_subject" value="🏈 New League Survey Response">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://vanquick.github.io/cascade-hangover-sms/survey-thanks.html">
+            <input type="text" name="_honey" style="display:none">
+
+            <div class="section-title">🏈 The Basics</div>
+
+            <div class="field">
+                <label class="required">1. Your name & where you're from</label>
+                <input type="text" name="Name & Location" placeholder="e.g. Josh — Portland, OR" required>
+            </div>
+
+            <div class="field">
+                <label class="required">2. Team name & how you came up with it</label>
+                <input type="text" name="Team Name & Origin" placeholder="e.g. The Hangover Hogs — because Sunday mornings are rough" required>
+            </div>
+
+            <div class="field">
+                <label class="required">3. Favorite NFL team</label>
+                <input type="text" name="Favorite NFL Team" required>
+            </div>
+
+            <div class="section-title">🎮 Fantasy Experience</div>
+
+            <div class="field">
+                <label class="required">4. How long have you been playing fantasy football?</label>
+                <div class="radio-group">
+                    <label class="radio-option"><input type="radio" name="Fantasy Experience" value="First year" required><span>This is my first year</span></label>
+                    <label class="radio-option"><input type="radio" name="Fantasy Experience" value="2-3 years"><span>2–3 years</span></label>
+                    <label class="radio-option"><input type="radio" name="Fantasy Experience" value="4-7 years"><span>4–7 years</span></label>
+                    <label class="radio-option"><input type="radio" name="Fantasy Experience" value="8+ years"><span>8+ years — I've seen things</span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>5. Best fantasy accomplishment OR worst heartbreak <span class="hint">(pick whichever is a better story)</span></label>
+                <textarea name="Best or Worst Fantasy Moment" placeholder="Championships, devastating injuries, the trade you still regret..."></textarea>
+            </div>
+
+            <div class="section-title">⚔️ League Strategy</div>
+
+            <div class="field">
+                <label>6. What's your draft strategy?</label>
+                <div class="radio-group">
+                    <label class="radio-option"><input type="radio" name="Draft Strategy" value="Zero RB"><span><span class="strategy-name">Zero RB</span><br><span class="strategy-desc">Load up on WRs early, grab RBs later</span></span></label>
+                    <label class="radio-option"><input type="radio" name="Draft Strategy" value="Hero RB"><span><span class="strategy-name">Hero RB</span><br><span class="strategy-desc">One elite RB early, then pivot to WRs/QBs/TEs</span></span></label>
+                    <label class="radio-option"><input type="radio" name="Draft Strategy" value="QB Early"><span><span class="strategy-name">QB Early</span><br><span class="strategy-desc">Lock up a top quarterback in the first few rounds</span></span></label>
+                    <label class="radio-option"><input type="radio" name="Draft Strategy" value="BPA"><span><span class="strategy-name">Best Player Available</span><br><span class="strategy-desc">Forget positions, take the best player on the board</span></span></label>
+                    <label class="radio-option"><input type="radio" name="Draft Strategy" value="Ride or Die"><span><span class="strategy-name">Ride or Die with My Guys</span><br><span class="strategy-desc">Drafting my favorites, even if it means reaching</span></span></label>
+                    <label class="radio-option"><input type="radio" name="Draft Strategy" value="No plan"><span><span class="strategy-name">No plan</span><br><span class="strategy-desc">Vibes only 🤷</span></span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>7. What's your trash talk style?</label>
+                <input type="text" name="Trash Talk Style" placeholder="Memes, subtle digs, bold predictions, silence but deadly...">
+            </div>
+
+            <div class="section-title">🔥 Predictions & Rivalries</div>
+
+            <div class="field">
+                <label>8. Which manager are you most excited to beat this year — and why?</label>
+                <textarea name="Manager to Beat" placeholder="Name names. This is going in the video."></textarea>
+            </div>
+
+            <div class="field">
+                <label>9. Bold prediction for this season?</label>
+                <textarea name="Bold Prediction" placeholder="Go big or go home."></textarea>
+            </div>
+
+            <div class="section-title">🎲 Wild Card</div>
+
+            <div class="field">
+                <label>10. Random fun fact about you most people in the league wouldn't know</label>
+                <input type="text" name="Fun Fact" placeholder="The weirder the better.">
+            </div>
+
+            <div class="field">
+                <label class="required">📸 Upload a headshot or photo for the intro video</label>
+                <input type="file" name="attachment" accept="image/*" required>
+            </div>
+
+            <button type="submit">Submit 🏈</button>
+        </form>
+    </div>
+</body>
+</html>
