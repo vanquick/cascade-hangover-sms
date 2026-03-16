@@ -1,67 +1,673 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Cascade Hangover League - SMS Notifications</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; color: #333; }
-        h1 { color: #1a1a2e; }
-        .info { background: #f0f4f8; padding: 20px; border-radius: 8px; margin: 20px 0; }
-        ul { line-height: 1.8; }
-        .keywords { background: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107; }
-        .consent-method { background: #d4edda; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #28a745; }
-        footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 0.9em; color: #666; }
-        footer a { color: #555; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cascade Hangover League — Dynasty Fantasy Football</title>
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: #1a1209;
+  color: #f5eed9;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ===== PALETTE ===== */
+:root {
+  --bg-dark: #1a1209;
+  --bg-card: #2a1f10;
+  --bg-card-hover: #3a2a16;
+  --amber: #d4a534;
+  --amber-light: #e8c560;
+  --amber-glow: rgba(212, 165, 52, 0.15);
+  --cream: #f5eed9;
+  --cream-dim: #bfb89e;
+  --brown-mid: #5c4422;
+  --brown-dark: #3a2a16;
+  --brown-border: #4a3620;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--brown-mid); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--amber); }
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(26, 18, 9, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--brown-border);
+  padding: 0 1.5rem;
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  font-size: 1rem; font-weight: bold; color: var(--amber);
+  text-decoration: none; letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a {
+  color: var(--cream-dim); text-decoration: none; font-size: 0.85rem;
+  letter-spacing: 0.3px; transition: color 0.2s; font-family: 'Segoe UI', Arial, sans-serif;
+}
+.nav-links a:hover { color: var(--amber); }
+.nav-toggle { display: none; background: none; border: none; color: var(--amber); font-size: 1.5rem; cursor: pointer; }
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed; top: 56px; left: 0; right: 0;
+    background: rgba(26, 18, 9, 0.97);
+    flex-direction: column; padding: 1rem 1.5rem; gap: 1rem;
+    transform: translateY(-120%); transition: transform 0.3s;
+    border-bottom: 1px solid var(--brown-border);
+  }
+  .nav-links.open { transform: translateY(0); }
+  .nav-toggle { display: block; }
+}
+
+/* ===== SECTIONS ===== */
+section { padding: 5rem 1.5rem; }
+.section-inner { max-width: 1000px; margin: 0 auto; }
+.section-title {
+  font-size: 2rem; color: var(--amber); text-align: center;
+  margin-bottom: 0.5rem; letter-spacing: 1px;
+}
+.section-subtitle {
+  text-align: center; color: var(--cream-dim); font-size: 0.95rem;
+  margin-bottom: 3rem; font-style: italic;
+}
+
+/* ===== HERO ===== */
+#hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding-top: 56px; position: relative;
+  background: radial-gradient(ellipse at 50% 30%, rgba(212,165,52,0.08) 0%, transparent 60%),
+              var(--bg-dark);
+}
+.hero-content { animation: fadeUp 1s ease-out; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-icon {
+  font-size: 3.5rem; margin-bottom: 1rem;
+  display: inline-block; animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.hero-title {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: var(--amber); line-height: 1.15;
+  margin-bottom: 0.75rem; letter-spacing: 1px;
+}
+.hero-tagline {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--cream-dim); margin-bottom: 1.5rem;
+  font-style: italic;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--brown-dark); border: 1px solid var(--brown-border);
+  padding: 0.4rem 1.2rem; border-radius: 999px;
+  font-size: 0.85rem; color: var(--amber-light);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  letter-spacing: 0.5px;
+}
+.hero-scroll-hint {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  animation: pulse 2s ease-in-out infinite; color: var(--cream-dim);
+  font-size: 1.5rem;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ===== TIMELINE ===== */
+#timeline { background: linear-gradient(180deg, var(--bg-dark) 0%, #1f1609 100%); }
+.timeline-track {
+  position: relative; padding: 2rem 0;
+}
+.timeline-track::before {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 3px; background: linear-gradient(180deg, var(--amber) 0%, var(--brown-mid) 100%);
+  transform: translateX(-50%);
+}
+@media (max-width: 768px) {
+  .timeline-track::before { left: 24px; }
+}
+
+.tl-item {
+  display: flex; align-items: flex-start; margin-bottom: 2.5rem;
+  position: relative; opacity: 0; transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.tl-item.visible { opacity: 1; transform: translateY(0); }
+.tl-item:nth-child(odd) { flex-direction: row-reverse; }
+
+.tl-dot {
+  position: absolute; left: 50%; top: 0.5rem;
+  width: 16px; height: 16px; background: var(--amber);
+  border: 3px solid var(--bg-dark); border-radius: 50%;
+  transform: translateX(-50%); z-index: 2;
+  box-shadow: 0 0 12px rgba(212,165,52,0.4);
+}
+.tl-card {
+  width: 42%; padding: 1.2rem 1.5rem;
+  background: var(--bg-card); border: 1px solid var(--brown-border);
+  border-radius: 10px; position: relative;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.tl-card:hover {
+  border-color: var(--amber); box-shadow: 0 0 20px var(--amber-glow);
+}
+.tl-date {
+  font-size: 0.78rem; color: var(--amber-light);
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 0.3rem; font-family: 'Segoe UI', Arial, sans-serif;
+}
+.tl-card h3 {
+  font-size: 1.05rem; color: var(--cream); margin-bottom: 0.3rem;
+}
+.tl-card p {
+  font-size: 0.88rem; color: var(--cream-dim); line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .tl-item, .tl-item:nth-child(odd) { flex-direction: row; padding-left: 52px; }
+  .tl-dot { left: 24px; }
+  .tl-card { width: 100%; }
+}
+
+/* ===== RULES ACCORDION ===== */
+#rules { background: var(--bg-dark); }
+.accordion-item {
+  background: var(--bg-card); border: 1px solid var(--brown-border);
+  border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden;
+  transition: border-color 0.3s;
+}
+.accordion-item:hover { border-color: var(--brown-mid); }
+.accordion-btn {
+  width: 100%; background: none; border: none; padding: 1rem 1.25rem;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; color: var(--cream); font-size: 1rem;
+  font-family: 'Georgia', serif; text-align: left;
+  transition: background 0.2s;
+}
+.accordion-btn:hover { background: rgba(212,165,52,0.05); }
+.accordion-btn .icon {
+  color: var(--amber); font-size: 1.2rem;
+  transition: transform 0.3s; flex-shrink: 0; margin-left: 1rem;
+}
+.accordion-item.open .accordion-btn .icon { transform: rotate(45deg); }
+.accordion-body {
+  max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+  padding: 0 1.25rem;
+}
+.accordion-item.open .accordion-body { max-height: 400px; }
+.accordion-body-inner {
+  padding: 0 0 1rem; color: var(--cream-dim); font-size: 0.92rem;
+  line-height: 1.7;
+}
+.accordion-body-inner strong { color: var(--amber-light); }
+
+/* ===== MANAGER CARDS ===== */
+#managers { background: linear-gradient(180deg, #1f1609 0%, var(--bg-dark) 100%); }
+.managers-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+.manager-card {
+  background: var(--bg-card); border: 1px solid var(--brown-border);
+  border-radius: 10px; padding: 1.5rem 1rem; text-align: center;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, box-shadow 0.3s;
+}
+.manager-card.visible { opacity: 1; transform: translateY(0); }
+.manager-card:hover {
+  border-color: var(--amber); box-shadow: 0 4px 20px var(--amber-glow);
+  transform: translateY(-4px);
+}
+.manager-card.visible:hover { transform: translateY(-4px); }
+.manager-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--amber) 0%, var(--brown-mid) 100%);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 0.75rem; font-size: 1.5rem; font-weight: bold;
+  color: var(--bg-dark); font-family: 'Segoe UI', Arial, sans-serif;
+}
+.manager-name {
+  font-size: 1rem; color: var(--cream); margin-bottom: 0.25rem;
+}
+.manager-role {
+  font-size: 0.78rem; color: var(--amber); text-transform: uppercase;
+  letter-spacing: 1px; font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* ===== VOTES ===== */
+#votes { background: var(--bg-dark); }
+.votes-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem; margin-bottom: 2.5rem;
+}
+.vote-card {
+  background: var(--bg-card); border: 1px solid var(--brown-border);
+  border-radius: 10px; padding: 1.5rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.vote-card:hover {
+  border-color: var(--amber); box-shadow: 0 4px 20px var(--amber-glow);
+}
+.vote-card h3 {
+  font-size: 1rem; color: var(--amber-light); margin-bottom: 0.5rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.vote-card p {
+  font-size: 0.9rem; color: var(--cream-dim); line-height: 1.6;
+}
+.vote-options {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem;
+}
+.vote-chip {
+  background: var(--brown-dark); border: 1px solid var(--brown-border);
+  padding: 0.3rem 0.8rem; border-radius: 999px;
+  font-size: 0.8rem; color: var(--cream-dim);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.cta-box {
+  text-align: center; padding: 2rem;
+  background: linear-gradient(135deg, rgba(212,165,52,0.08) 0%, rgba(212,165,52,0.02) 100%);
+  border: 1px dashed var(--amber); border-radius: 12px;
+}
+.cta-box h3 {
+  font-size: 1.3rem; color: var(--amber); margin-bottom: 0.5rem;
+}
+.cta-box p { color: var(--cream-dim); font-size: 0.95rem; }
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center; padding: 2rem 1.5rem;
+  border-top: 1px solid var(--brown-border);
+  color: var(--cream-dim); font-size: 0.8rem;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+footer a { color: var(--amber); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
 </head>
 <body>
-    <h1>🏈 The Cascade Hangover League</h1>
-    <h2>SMS Notification Consent</h2>
 
-    <div class="consent-method">
-        <h3>How Consent Is Collected</h3>
-        <p>Consent for SMS notifications is collected <strong>verbally</strong> by the league commissioner (Josh Van Quick) when each member joins the league. The commissioner confirms the member's phone number and explains that they will receive league-related SMS messages. Members voluntarily provide their phone numbers for league communication purposes.</p>
-        <p>Verbal consent is recorded and stored by the league commissioner along with the date of consent and the member's phone number.</p>
-    </div>
-
-    <div class="info">
-        <p>By joining The Cascade Hangover League on Sleeper, members agree to receive SMS notifications related to league activities including:</p>
-        <ul>
-            <li>Poll reminders and voting deadlines</li>
-            <li>Draft announcements and scheduling</li>
-            <li>League updates and rule changes</li>
-            <li>Weekly recaps and power rankings</li>
-            <li>Trade and waiver notifications</li>
-        </ul>
-    </div>
-
-    <h3>Details</h3>
-    <ul>
-        <li><strong>Frequency:</strong> Estimated 5-15 messages per month</li>
-        <li><strong>Message & data rates may apply</strong></li>
-        <li><strong>Contact:</strong> vanquicktech@gmail.com</li>
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">🥃 CHL</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#rules">Rules</a></li>
+      <li><a href="#managers">Managers</a></li>
+      <li><a href="#votes">Votes</a></li>
     </ul>
+  </div>
+</nav>
 
-    <div class="keywords">
-        <h3>SMS Keywords</h3>
-        <p>You can use the following keywords at any time by replying to any message from our number:</p>
-        <ul>
-            <li><strong>STOP</strong> — Reply STOP to opt out and stop receiving all SMS messages from The Cascade Hangover League.</li>
-            <li><strong>HELP</strong> — Reply HELP for assistance. You will receive a message with contact information and instructions.</li>
-        </ul>
-        <p>After sending STOP, you will receive a one-time confirmation message. No further messages will be sent unless you re-subscribe by contacting the league commissioner.</p>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-icon">🥃</div>
+    <h1 class="hero-title">The Cascade<br>Hangover League</h1>
+    <p class="hero-tagline">Dynasty Fantasy Football &mdash; Est. 2026</p>
+    <span class="hero-badge">&#9917; Powered by Sleeper</span>
+  </div>
+  <div class="hero-scroll-hint">&#8595;</div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-inner">
+    <h2 class="section-title">Road to Season 1</h2>
+    <p class="section-subtitle">From a late-night idea to kickoff</p>
+    <div class="timeline-track">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">August 2025</div>
+          <h3>&#128161; Concept Born</h3>
+          <p>The idea for a dynasty league among friends takes shape. Conversations start, interest builds.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">February 2026</div>
+          <h3>&#129309; League Formation Begins</h3>
+          <p>10 managers commit. The group chat lights up — names, rules, and trash talk flow freely.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">March 2026</div>
+          <h3>&#9881;&#65039; Platform &amp; Rules</h3>
+          <p>Sleeper selected as the platform. Rules drafted, debated, and refined. Democracy in action.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">April 2026</div>
+          <h3>&#9989; Rules Finalized</h3>
+          <p>Group votes close. The constitution is ratified. League bylaws are locked in.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">May 2026</div>
+          <h3>&#127922; Rookie Draft Order Set</h3>
+          <p>Draft order is determined. Managers start studying tape and building big boards.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">July 2026</div>
+          <h3>&#128293; Startup Draft</h3>
+          <p>The main event. All players are on the board. Dynasties are built from scratch. Date TBD — targeting late July.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">August 2026</div>
+          <h3>&#127944; Rookie Draft</h3>
+          <p>5 rounds of fresh talent. After NFL preseason, before Week 1. The final piece of the puzzle.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">September 4, 2026</div>
+          <h3>&#127941; NFL Season 1 Kicks Off</h3>
+          <p>It's here. Week 1. All the planning, all the drafting — it all comes down to this. Let's ride.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <div class="section-inner">
+    <h2 class="section-title">League Rules</h2>
+    <p class="section-subtitle">The official bylaws of the CHL</p>
+
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>&#127944; Format</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <strong>Dynasty</strong> league — your roster carries over year to year. 10 teams competing on the <strong>Sleeper</strong> platform. Build for now and the future.
+      </div></div>
     </div>
 
-    <p><em>The Cascade Hangover League — A VanQuick Tech Dynasty Fantasy Football League</em></p>
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>&#128101; Roster</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <strong>Starters:</strong> 1 QB, 2 RB, 2 WR, 1 TE, 2 FLEX, 1 DEF<br>
+        <strong>Bench:</strong> 25-man total roster<br>
+        <strong>Taxi Squad:</strong> 5 spots (rookies only, can be called up anytime)
+      </div></div>
+    </div>
 
-    <footer>
-        <p>
-            <a href="privacy.html">Privacy Policy</a> |
-            <a href="terms.html">Terms of Service</a> |
-            <a href="https://vanquicktech.com">VanQuick Tech</a>
-        </p>
-        <p>&copy; 2026 VanQuick Tech. All rights reserved.</p>
-    </footer>
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>&#128200; Scoring</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <strong>PPR</strong> — 1 point per reception. Standard scoring otherwise. Every catch counts, so load up on pass-catchers.
+      </div></div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>&#128176; Waivers</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <strong>FAAB</strong> (Free Agent Acquisition Budget) — $100 budget per season. Continuous waivers. Spend wisely — when it's gone, it's gone.
+      </div></div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>&#129309; Trades</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        Trades are <strong>open year-round</strong>. No trade deadline in dynasty — wheeling and dealing never stops. Trade players, draft picks, and FAAB.
+      </div></div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>&#128221; Draft</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <strong>Startup Draft:</strong> All NFL players available. Build your dynasty from the ground up.<br>
+        <strong>Annual Rookie Draft:</strong> 5 rounds each year for incoming rookies.
+      </div></div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>&#127941; Playoffs</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <strong>Weeks 14–16.</strong> Top 6 teams make the playoffs. Top 2 seeds earn a first-round bye. Single elimination. Win or go home.
+      </div></div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn">
+        <span>&#128178; Buy-In</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <strong>TBD</strong> — pending group vote. Options on the table: $50, $100, or free. Head to the Votes section to weigh in.
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MANAGERS -->
+<section id="managers">
+  <div class="section-inner">
+    <h2 class="section-title">The Managers</h2>
+    <p class="section-subtitle">10 managers. 1 dynasty league. Endless bragging rights.</p>
+    <div class="managers-grid" id="managersGrid"></div>
+  </div>
+</section>
+
+<!-- VOTES -->
+<section id="votes">
+  <div class="section-inner">
+    <h2 class="section-title">Open Votes</h2>
+    <p class="section-subtitle">Decisions that need your input</p>
+    <div class="votes-grid">
+
+      <div class="vote-card">
+        <h3>&#127922; Draft Format</h3>
+        <p>How should we run the startup draft?</p>
+        <div class="vote-options">
+          <span class="vote-chip">Snake</span>
+          <span class="vote-chip">Auction</span>
+          <span class="vote-chip">Slow Email</span>
+        </div>
+      </div>
+
+      <div class="vote-card">
+        <h3>&#129462; Kickers</h3>
+        <p>Do we include kickers on the roster?</p>
+        <div class="vote-options">
+          <span class="vote-chip">Include</span>
+          <span class="vote-chip">Exclude</span>
+        </div>
+      </div>
+
+      <div class="vote-card">
+        <h3>&#128176; Buy-In Amount</h3>
+        <p>What's the annual buy-in?</p>
+        <div class="vote-options">
+          <span class="vote-chip">Free</span>
+          <span class="vote-chip">$50</span>
+          <span class="vote-chip">$100</span>
+        </div>
+      </div>
+
+      <div class="vote-card">
+        <h3>&#128128; Last Place Punishment</h3>
+        <p>What happens to the league's biggest loser?</p>
+        <div class="vote-options">
+          <span class="vote-chip">TBD — Suggest Ideas!</span>
+        </div>
+      </div>
+
+      <div class="vote-card">
+        <h3>&#128197; Draft Date</h3>
+        <p>Targeting late July. What works for everyone?</p>
+        <div class="vote-options">
+          <span class="vote-chip">Late July TBD</span>
+        </div>
+      </div>
+
+      <div class="vote-card">
+        <h3>&#9889; Superflex</h3>
+        <p>Should we add a Superflex roster spot (QB/RB/WR/TE)?</p>
+        <div class="vote-options">
+          <span class="vote-chip">Yes — Superflex</span>
+          <span class="vote-chip">No — Keep Standard</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cta-box">
+      <h3>&#128227; Your Voice Matters</h3>
+      <p>Head to the group chat and cast your votes. These decisions shape our league for years to come.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>The Cascade Hangover League &mdash; Dynasty Fantasy Football &mdash; Est. 2026</p>
+  <p style="margin-top:0.5rem;">Built with whiskey and ambition. Powered by <a href="https://sleeper.com" target="_blank" rel="noopener">Sleeper</a>.</p>
+</footer>
+
+<script>
+/* ===== MANAGERS DATA ===== */
+var managers = [
+  { name: "Josh Van Quick", role: "Commissioner", initials: "JV" },
+  { name: "Jason Dietzel", role: "Manager", initials: "JD" },
+  { name: "Josh Cantrell", role: "Manager", initials: "JC" },
+  { name: "Patrick Howell", role: "Manager", initials: "PH" },
+  { name: "Evan Pozniakoff", role: "Manager", initials: "EP" },
+  { name: "Derrick Neely", role: "Manager", initials: "DN" },
+  { name: "Aaron Quick", role: "Manager", initials: "AQ" },
+  { name: "Drew Henderson", role: "Manager", initials: "DH" },
+  { name: "Mike Highsmith", role: "Manager", initials: "MH" },
+  { name: "Chad Albright", role: "Manager", initials: "CA" }
+];
+
+var grid = document.getElementById("managersGrid");
+managers.forEach(function(m, i) {
+  var card = document.createElement("div");
+  card.className = "manager-card";
+  card.style.transitionDelay = (i * 0.07) + "s";
+  card.innerHTML =
+    '<div class="manager-avatar">' + m.initials + '</div>' +
+    '<div class="manager-name">' + m.name + '</div>' +
+    (m.role !== "Manager" ? '<div class="manager-role">' + m.role + '</div>' : '');
+  grid.appendChild(card);
+});
+
+/* ===== NAV TOGGLE ===== */
+var toggle = document.getElementById("navToggle");
+var links = document.getElementById("navLinks");
+toggle.addEventListener("click", function() {
+  links.classList.toggle("open");
+});
+links.addEventListener("click", function(e) {
+  if (e.target.tagName === "A") links.classList.remove("open");
+});
+
+/* ===== NAV SCROLL SHADOW ===== */
+var nav = document.getElementById("navbar");
+window.addEventListener("scroll", function() {
+  nav.classList.toggle("scrolled", window.scrollY > 20);
+});
+
+/* ===== ACCORDION ===== */
+document.querySelectorAll(".accordion-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var item = btn.parentElement;
+    var wasOpen = item.classList.contains("open");
+    // close all
+    document.querySelectorAll(".accordion-item").forEach(function(ai) {
+      ai.classList.remove("open");
+    });
+    if (!wasOpen) item.classList.add("open");
+  });
+});
+
+/* ===== SCROLL ANIMATIONS (Intersection Observer) ===== */
+function onIntersect(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+}
+var observer = new IntersectionObserver(onIntersect, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+document.querySelectorAll(".tl-item, .manager-card").forEach(function(el) {
+  observer.observe(el);
+});
+</script>
+
 </body>
 </html>
