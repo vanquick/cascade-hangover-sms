@@ -216,10 +216,11 @@ section { padding: 5rem 1.5rem; }
 }
 .accordion-item.open .accordion-btn .icon { transform: rotate(45deg); }
 .accordion-body {
-  max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+  max-height: none; overflow: visible;
   padding: 0 1.25rem;
 }
-.accordion-item.open .accordion-body { max-height: 400px; }
+.accordion-btn .icon { display: none; }
+.accordion-btn { cursor: default; }
 .accordion-body-inner {
   padding: 0 0 1rem; color: var(--cream-dim); font-size: 0.92rem;
   line-height: 1.7;
