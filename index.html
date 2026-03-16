@@ -4,670 +4,883 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Cascade Hangover League — Dynasty Fantasy Football</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
 <style>
-/* ===== RESET & BASE ===== */
+/* ═══════════════════════════════════════════
+   ROOT & RESET
+   ═══════════════════════════════════════════ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --black: #0d0907;
+  --dark: #1a1410;
+  --brown: #2a1f15;
+  --brown-light: #3d2e1f;
+  --amber: #d4a534;
+  --amber-glow: #d4a53466;
+  --gold: #f0c75e;
+  --cream: #f5ead6;
+  --cream-dim: #c4b89e;
+  --glass-bg: rgba(26, 20, 16, 0.65);
+  --glass-border: rgba(212, 165, 52, 0.15);
+  --glass-highlight: rgba(212, 165, 52, 0.08);
+}
+
+html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  background: #1a1209;
-  color: #f5eed9;
+  font-family: 'Inter', sans-serif;
+  background: var(--black);
+  color: var(--cream);
   line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ===== PALETTE ===== */
-:root {
-  --bg-dark: #1a1209;
-  --bg-card: #2a1f10;
-  --bg-card-hover: #3a2a16;
-  --amber: #d4a534;
-  --amber-light: #e8c560;
-  --amber-glow: rgba(212, 165, 52, 0.15);
-  --cream: #f5eed9;
-  --cream-dim: #bfb89e;
-  --brown-mid: #5c4422;
-  --brown-dark: #3a2a16;
-  --brown-border: #4a3620;
+h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+
+/* ═══════════════════════════════════════════
+   UTILITY: FADE-IN ON SCROLL
+   ═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg-dark); }
-::-webkit-scrollbar-thumb { background: var(--brown-mid); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--amber); }
-
-/* ===== NAV ===== */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(26, 18, 9, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--brown-border);
-  padding: 0 1.5rem;
-  transition: box-shadow 0.3s;
+/* ═══════════════════════════════════════════
+   NAV BAR
+   ═══════════════════════════════════════════ */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  transition: background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s;
 }
-nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-.nav-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 56px;
+.navbar.scrolled {
+  background: rgba(13, 9, 7, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(212, 165, 52, 0.1);
 }
-.nav-logo {
-  font-size: 1rem; font-weight: bold; color: var(--amber);
-  text-decoration: none; letter-spacing: 0.5px;
-  white-space: nowrap;
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--amber);
+  letter-spacing: 0.5px;
+  text-decoration: none;
 }
-.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links { display: flex; gap: 1.75rem; list-style: none; }
 .nav-links a {
-  color: var(--cream-dim); text-decoration: none; font-size: 0.85rem;
-  letter-spacing: 0.3px; transition: color 0.2s; font-family: 'Segoe UI', Arial, sans-serif;
+  color: var(--cream-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--amber);
+  transition: width 0.3s;
 }
 .nav-links a:hover { color: var(--amber); }
-.nav-toggle { display: none; background: none; border: none; color: var(--amber); font-size: 1.5rem; cursor: pointer; }
+.nav-links a:hover::after { width: 100%; }
 
-@media (max-width: 768px) {
-  .nav-links {
-    position: fixed; top: 56px; left: 0; right: 0;
-    background: rgba(26, 18, 9, 0.97);
-    flex-direction: column; padding: 1rem 1.5rem; gap: 1rem;
-    transform: translateY(-120%); transition: transform 0.3s;
-    border-bottom: 1px solid var(--brown-border);
-  }
-  .nav-links.open { transform: translateY(0); }
-  .nav-toggle { display: block; }
+.nav-toggle { display: none; cursor: pointer; background: none; border: none; }
+.nav-toggle span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--cream);
+  margin: 5px 0;
+  transition: 0.3s;
 }
 
-/* ===== SECTIONS ===== */
-section { padding: 5rem 1.5rem; }
-.section-inner { max-width: 1000px; margin: 0 auto; }
-.section-title {
-  font-size: 2rem; color: var(--amber); text-align: center;
-  margin-bottom: 0.5rem; letter-spacing: 1px;
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
 }
-.section-subtitle {
-  text-align: center; color: var(--cream-dim); font-size: 0.95rem;
-  margin-bottom: 3rem; font-style: italic;
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('images/hero.png') center/cover no-repeat;
+  will-change: transform;
+  z-index: 0;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 9, 7, 0.5) 0%,
+    rgba(13, 9, 7, 0.3) 40%,
+    rgba(13, 9, 7, 0.6) 70%,
+    rgba(13, 9, 7, 0.95) 100%
+  );
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 0 2rem;
+}
+.hero-badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber);
+  border: 1px solid var(--amber);
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+.hero-title {
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: #fff;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.7), 0 0 80px rgba(212, 165, 52, 0.15);
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.5s forwards;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--amber);
+}
+.hero-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-weight: 300;
+  color: var(--cream-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.7s forwards;
+}
+.hero-cta {
+  display: inline-block;
+  padding: 0.9rem 2.5rem;
+  background: linear-gradient(135deg, var(--amber), #b8891a);
+  color: var(--black);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  opacity: 0;
+  animation: fadeUp 1s 0.9s forwards;
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(212, 165, 52, 0.35);
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s forwards;
+}
+.hero-scroll span {
+  display: block;
+  width: 2px; height: 40px;
+  background: linear-gradient(to bottom, var(--amber), transparent);
+  margin: 0 auto;
+  animation: scrollPulse 2s infinite;
 }
 
-/* ===== HERO ===== */
-#hero {
-  min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  text-align: center; padding-top: 56px; position: relative;
-  background: radial-gradient(ellipse at 50% 30%, rgba(212,165,52,0.08) 0%, transparent 60%),
-              var(--bg-dark);
-}
-.hero-content { animation: fadeUp 1s ease-out; }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.hero-icon {
-  font-size: 3.5rem; margin-bottom: 1rem;
-  display: inline-block; animation: float 3s ease-in-out infinite;
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-.hero-title {
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  color: var(--amber); line-height: 1.15;
-  margin-bottom: 0.75rem; letter-spacing: 1px;
-}
-.hero-tagline {
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  color: var(--cream-dim); margin-bottom: 1.5rem;
-  font-style: italic;
-}
-.hero-badge {
-  display: inline-block;
-  background: var(--brown-dark); border: 1px solid var(--brown-border);
-  padding: 0.4rem 1.2rem; border-radius: 999px;
-  font-size: 0.85rem; color: var(--amber-light);
-  font-family: 'Segoe UI', Arial, sans-serif;
-  letter-spacing: 0.5px;
-}
-.hero-scroll-hint {
-  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-  animation: pulse 2s ease-in-out infinite; color: var(--cream-dim);
-  font-size: 1.5rem;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
 }
 
-/* ===== TIMELINE ===== */
-#timeline { background: linear-gradient(180deg, var(--bg-dark) 0%, #1f1609 100%); }
-.timeline-track {
-  position: relative; padding: 2rem 0;
+/* ═══════════════════════════════════════════
+   SECTIONS
+   ═══════════════════════════════════════════ */
+section {
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.timeline-track::before {
-  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
-  width: 3px; background: linear-gradient(180deg, var(--amber) 0%, var(--brown-mid) 100%);
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+.section-desc {
+  font-size: 1.05rem;
+  color: var(--cream-dim);
+  max-width: 600px;
+  margin-bottom: 3.5rem;
+  font-weight: 300;
+}
+.section-divider {
+  width: 60px; height: 2px;
+  background: linear-gradient(to right, var(--amber), transparent);
+  margin-bottom: 3rem;
+}
+
+/* ═══════════════════════════════════════════
+   TIMELINE
+   ═══════════════════════════════════════════ */
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--amber), transparent);
   transform: translateX(-50%);
 }
-@media (max-width: 768px) {
-  .timeline-track::before { left: 24px; }
-}
-
 .tl-item {
-  display: flex; align-items: flex-start; margin-bottom: 2.5rem;
-  position: relative; opacity: 0; transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  position: relative;
+  width: 50%;
+  padding: 1.25rem 2.5rem;
 }
-.tl-item.visible { opacity: 1; transform: translateY(0); }
-.tl-item:nth-child(odd) { flex-direction: row-reverse; }
-
+.tl-item:nth-child(odd) { left: 0; text-align: right; padding-right: 3.5rem; }
+.tl-item:nth-child(even) { left: 50%; text-align: left; padding-left: 3.5rem; }
 .tl-dot {
-  position: absolute; left: 50%; top: 0.5rem;
-  width: 16px; height: 16px; background: var(--amber);
-  border: 3px solid var(--bg-dark); border-radius: 50%;
-  transform: translateX(-50%); z-index: 2;
-  box-shadow: 0 0 12px rgba(212,165,52,0.4);
+  position: absolute;
+  top: 1.75rem;
+  width: 14px; height: 14px;
+  background: var(--amber);
+  border: 3px solid var(--black);
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 15px var(--amber-glow), 0 0 30px rgba(212,165,52,0.15);
 }
+.tl-item:nth-child(odd) .tl-dot { right: -7px; }
+.tl-item:nth-child(even) .tl-dot { left: -7px; }
 .tl-card {
-  width: 42%; padding: 1.2rem 1.5rem;
-  background: var(--bg-card); border: 1px solid var(--brown-border);
-  border-radius: 10px; position: relative;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .tl-card:hover {
-  border-color: var(--amber); box-shadow: 0 0 20px var(--amber-glow);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
 .tl-date {
-  font-size: 0.78rem; color: var(--amber-light);
-  text-transform: uppercase; letter-spacing: 1px;
-  margin-bottom: 0.3rem; font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.35rem;
 }
-.tl-card h3 {
-  font-size: 1.05rem; color: var(--cream); margin-bottom: 0.3rem;
+.tl-text {
+  font-size: 0.95rem;
+  color: var(--cream);
+  line-height: 1.5;
 }
-.tl-card p {
-  font-size: 0.88rem; color: var(--cream-dim); line-height: 1.5;
+.tl-highlight .tl-card {
+  border-color: var(--amber);
+  box-shadow: 0 0 25px rgba(212,165,52,0.1);
 }
 
-@media (max-width: 768px) {
-  .tl-item, .tl-item:nth-child(odd) { flex-direction: row; padding-left: 52px; }
-  .tl-dot { left: 24px; }
-  .tl-card { width: 100%; }
-}
-
-/* ===== RULES ACCORDION ===== */
-#rules { background: var(--bg-dark); }
-.accordion-item {
-  background: var(--bg-card); border: 1px solid var(--brown-border);
-  border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden;
-  transition: border-color 0.3s;
-}
-.accordion-item:hover { border-color: var(--brown-mid); }
-.accordion-btn {
-  width: 100%; background: none; border: none; padding: 1rem 1.25rem;
-  display: flex; align-items: center; justify-content: space-between;
-  cursor: pointer; color: var(--cream); font-size: 1rem;
-  font-family: 'Georgia', serif; text-align: left;
-  transition: background 0.2s;
-}
-.accordion-btn:hover { background: rgba(212,165,52,0.05); }
-.accordion-btn .icon {
-  color: var(--amber); font-size: 1.2rem;
-  transition: transform 0.3s; flex-shrink: 0; margin-left: 1rem;
-}
-.accordion-item.open .accordion-btn .icon { transform: rotate(45deg); }
-.accordion-body {
-  max-height: none; overflow: visible;
-  padding: 0 1.25rem;
-}
-.accordion-btn .icon { display: none; }
-.accordion-btn { cursor: default; }
-.accordion-body-inner {
-  padding: 0 0 1rem; color: var(--cream-dim); font-size: 0.92rem;
-  line-height: 1.7;
-}
-.accordion-body-inner strong { color: var(--amber-light); }
-
-/* ===== MANAGER CARDS ===== */
-#managers { background: linear-gradient(180deg, #1f1609 0%, var(--bg-dark) 100%); }
+/* ═══════════════════════════════════════════
+   MANAGERS
+   ═══════════════════════════════════════════ */
 .managers-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1.25rem;
 }
 .manager-card {
-  background: var(--bg-card); border: 1px solid var(--brown-border);
-  border-radius: 10px; padding: 1.5rem 1rem; text-align: center;
-  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, box-shadow 0.3s;
+  background: linear-gradient(145deg, var(--glass-bg), rgba(42, 31, 21, 0.5));
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  position: relative;
+  overflow: hidden;
 }
-.manager-card.visible { opacity: 1; transform: translateY(0); }
+.manager-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, transparent, var(--brown-light), transparent);
+  transition: background 0.3s;
+}
 .manager-card:hover {
-  border-color: var(--amber); box-shadow: 0 4px 20px var(--amber-glow);
-  transform: translateY(-4px);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+  border-color: rgba(212,165,52,0.3);
 }
-.manager-card.visible:hover { transform: translateY(-4px); }
+.manager-card:hover::before {
+  background: linear-gradient(to right, transparent, var(--amber), transparent);
+}
 .manager-avatar {
-  width: 64px; height: 64px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--amber) 0%, var(--brown-mid) 100%);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 0.75rem; font-size: 1.5rem; font-weight: bold;
-  color: var(--bg-dark); font-family: 'Segoe UI', Arial, sans-serif;
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--amber);
+  background: linear-gradient(135deg, var(--brown), var(--brown-light));
+  border: 2px solid rgba(212,165,52,0.2);
 }
 .manager-name {
-  font-size: 1rem; color: var(--cream); margin-bottom: 0.25rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.25rem;
 }
 .manager-role {
-  font-size: 0.78rem; color: var(--amber); text-transform: uppercase;
-  letter-spacing: 1px; font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--amber);
 }
 
-/* ===== VOTES ===== */
-#votes { background: var(--bg-dark); }
+/* Commissioner card */
+.manager-card.commissioner {
+  grid-column: span 1;
+  border-color: var(--amber);
+  background: linear-gradient(145deg, rgba(42, 31, 21, 0.8), rgba(26, 20, 16, 0.9));
+  box-shadow: 0 0 40px rgba(212, 165, 52, 0.1);
+}
+.manager-card.commissioner::before {
+  background: linear-gradient(to right, transparent, var(--amber), transparent);
+  height: 3px;
+}
+.manager-card.commissioner .manager-avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--amber);
+  box-shadow: 0 0 25px rgba(212, 165, 52, 0.3), 0 0 50px rgba(212, 165, 52, 0.1);
+  background: none;
+}
+.manager-card.commissioner .manager-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.manager-card.co-commissioner {
+  border-color: rgba(212,165,52,0.4);
+}
+.manager-card.co-commissioner::before {
+  background: linear-gradient(to right, transparent, rgba(212,165,52,0.6), transparent);
+}
+
+/* ═══════════════════════════════════════════
+   RULES
+   ═══════════════════════════════════════════ */
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+.rule-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-left: 3px solid var(--amber);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 6px;
+  padding: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.rule-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.rule-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.5rem;
+}
+.rule-text {
+  font-size: 0.95rem;
+  color: var(--cream);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════
+   OPEN VOTES
+   ═══════════════════════════════════════════ */
 .votes-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem; margin-bottom: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
 }
 .vote-card {
-  background: var(--bg-card); border: 1px solid var(--brown-border);
-  border-radius: 10px; padding: 1.5rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  background: var(--glass-bg);
+  border: 2px solid var(--amber);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  animation: votePulse 3s ease-in-out infinite;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .vote-card:hover {
-  border-color: var(--amber); box-shadow: 0 4px 20px var(--amber-glow);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px rgba(212, 165, 52, 0.2);
 }
-.vote-card h3 {
-  font-size: 1rem; color: var(--amber-light); margin-bottom: 0.5rem;
-  display: flex; align-items: center; gap: 0.5rem;
+.vote-card::before {
+  content: 'VOTE';
+  position: absolute;
+  top: 0.75rem; right: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--black);
+  background: var(--amber);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
 }
-.vote-card p {
-  font-size: 0.9rem; color: var(--cream-dim); line-height: 1.6;
+.vote-question {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  padding-right: 3rem;
 }
 .vote-options {
-  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+  font-style: italic;
 }
-.vote-chip {
-  background: var(--brown-dark); border: 1px solid var(--brown-border);
-  padding: 0.3rem 0.8rem; border-radius: 999px;
-  font-size: 0.8rem; color: var(--cream-dim);
-  font-family: 'Segoe UI', Arial, sans-serif;
-}
-.cta-box {
-  text-align: center; padding: 2rem;
-  background: linear-gradient(135deg, rgba(212,165,52,0.08) 0%, rgba(212,165,52,0.02) 100%);
-  border: 1px dashed var(--amber); border-radius: 12px;
-}
-.cta-box h3 {
-  font-size: 1.3rem; color: var(--amber); margin-bottom: 0.5rem;
-}
-.cta-box p { color: var(--cream-dim); font-size: 0.95rem; }
 
-/* ===== FOOTER ===== */
-footer {
-  text-align: center; padding: 2rem 1.5rem;
-  border-top: 1px solid var(--brown-border);
-  color: var(--cream-dim); font-size: 0.8rem;
-  font-family: 'Segoe UI', Arial, sans-serif;
+@keyframes votePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,165,52,0); }
+  50% { box-shadow: 0 0 20px 0 rgba(212,165,52,0.15); }
 }
-footer a { color: var(--amber); text-decoration: none; }
-footer a:hover { text-decoration: underline; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(212,165,52,0.1);
+}
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--amber);
+  margin-bottom: 0.5rem;
+}
+.footer-sub {
+  font-size: 0.75rem;
+  color: var(--cream-dim);
+  letter-spacing: 1px;
+}
+.footer-sub a {
+  color: var(--amber);
+  text-decoration: none;
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-links { 
+    display: none;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    background: rgba(13,9,7,0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 1rem 2rem 1.5rem;
+    gap: 1rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+
+  .timeline::before { left: 20px; }
+  .tl-item, .tl-item:nth-child(even) {
+    width: 100%; left: 0;
+    text-align: left;
+    padding-left: 3.5rem;
+    padding-right: 1rem;
+  }
+  .tl-item:nth-child(odd) { text-align: left; padding-left: 3.5rem; padding-right: 1rem; }
+  .tl-dot, .tl-item:nth-child(odd) .tl-dot, .tl-item:nth-child(even) .tl-dot {
+    left: 13px; right: auto;
+  }
+  .managers-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .rules-grid { grid-template-columns: 1fr; }
+  .votes-grid { grid-template-columns: 1fr; }
+  section { padding: 4rem 1.25rem; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="navbar">
-  <div class="nav-inner">
-    <a href="#hero" class="nav-logo">🥃 CHL</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#timeline">Timeline</a></li>
-      <li><a href="#rules">Rules</a></li>
-      <li><a href="#managers">Managers</a></li>
-      <li><a href="#votes">Votes</a></li>
-    </ul>
-  </div>
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="navbar" id="navbar">
+  <a href="#" class="nav-brand">CHL</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#managers">Managers</a></li>
+    <li><a href="#rules">Rules</a></li>
+    <li><a href="#votes">Votes</a></li>
+  </ul>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-icon">🥃</div>
-    <h1 class="hero-title">The Cascade<br>Hangover League</h1>
-    <p class="hero-tagline">Dynasty Fantasy Football &mdash; Est. 2026</p>
-    <span class="hero-badge">&#9917; Powered by VanQuick Tech</span>
+    <div class="hero-badge">Dynasty Fantasy Football — Est. 2026</div>
+    <h1 class="hero-title">The Cascade<br><em>Hangover</em> League</h1>
+    <p class="hero-subtitle">10 Managers · One Dynasty · No Mercy</p>
+    <a href="#timeline" class="hero-cta">Enter the League</a>
   </div>
-  <div class="hero-scroll-hint">&#8595;</div>
+  <div class="hero-scroll"><span></span></div>
 </section>
 
-<!-- TIMELINE -->
+<!-- ═══════════ TIMELINE ═══════════ -->
 <section id="timeline">
-  <div class="section-inner">
-    <h2 class="section-title">Road to Season 1</h2>
-    <p class="section-subtitle">From a late-night idea to kickoff</p>
-    <div class="timeline-track">
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">August 2025</div>
-          <h3>&#128161; Concept Born</h3>
-          <p>The idea for a dynasty league among friends takes shape. Conversations start, interest builds.</p>
-        </div>
+  <div class="reveal">
+    <p class="section-label">The Journey</p>
+    <h2 class="section-title">League Timeline</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <p class="tl-date">August 2025</p>
+        <p class="tl-text">The concept is born — conversations begin about building a dynasty league worth committing to.</p>
       </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">February 2026</div>
-          <h3>&#129309; League Formation Begins</h3>
-          <p>10 managers commit. The group chat lights up — names, rules, and trash talk flow freely.</p>
-        </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <p class="tl-date">February 2026</p>
+        <p class="tl-text">League formation begins. Managers are recruited and commitments secured.</p>
       </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">March 2026</div>
-          <h3>&#9881;&#65039; Platform &amp; Rules</h3>
-          <p>Sleeper selected as the platform. Rules drafted, debated, and refined. Democracy in action.</p>
-        </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <p class="tl-date">March 2026</p>
+        <p class="tl-text">Platform selected — Sleeper. Constitution drafted, rules debated.</p>
       </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">April 2026</div>
-          <h3>&#9989; Rules Finalized</h3>
-          <p>Group votes close. The constitution is ratified. League bylaws are locked in.</p>
-        </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <p class="tl-date">April 2026</p>
+        <p class="tl-text">Rules finalized. Group votes close. The framework is locked in.</p>
       </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">May 2026</div>
-          <h3>&#127922; Rookie Draft Order Set</h3>
-          <p>Draft order is determined. Managers start studying tape and building big boards.</p>
-        </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <p class="tl-date">May 2026</p>
+        <p class="tl-text">Rookie draft order determined. The anticipation builds.</p>
       </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">July 2026</div>
-          <h3>&#128293; Startup Draft</h3>
-          <p>The main event. All players are on the board. Dynasties are built from scratch. Date TBD — targeting late July.</p>
-        </div>
+    </div>
+    <div class="tl-item tl-highlight reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <p class="tl-date">July 2026</p>
+        <p class="tl-text">Startup draft — targeting late July. Every player in the NFL is on the board.</p>
       </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">August 2026</div>
-          <h3>&#127944; Rookie Draft</h3>
-          <p>5 rounds of fresh talent. After NFL preseason, before Week 1. The final piece of the puzzle.</p>
-        </div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <p class="tl-date">August 2026</p>
+        <p class="tl-text">Rookie draft. Fresh talent enters the league after NFL preseason.</p>
       </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-date">September 4, 2026</div>
-          <h3>&#127941; NFL Season 1 Kicks Off</h3>
-          <p>It's here. Week 1. All the planning, all the drafting — it all comes down to this. Let's ride.</p>
-        </div>
+    </div>
+    <div class="tl-item tl-highlight reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <p class="tl-date">September 4, 2026</p>
+        <p class="tl-text">NFL Season 1 kicks off. The Cascade Hangover League is live.</p>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- RULES -->
-<section id="rules">
-  <div class="section-inner">
-    <h2 class="section-title">League Rules</h2>
-    <p class="section-subtitle">The official bylaws of the CHL</p>
-
-    <div class="accordion-item">
-      <button class="accordion-btn">
-        <span>&#127944; Format</span>
-        <span class="icon">+</span>
-      </button>
-      <div class="accordion-body"><div class="accordion-body-inner">
-        <strong>Dynasty</strong> league — your roster carries over year to year. 10 teams competing on the <strong>Sleeper</strong> platform. Build for now and the future.
-      </div></div>
-    </div>
-
-    <div class="accordion-item">
-      <button class="accordion-btn">
-        <span>&#128101; Roster</span>
-        <span class="icon">+</span>
-      </button>
-      <div class="accordion-body"><div class="accordion-body-inner">
-        <strong>Starters:</strong> 1 QB, 2 RB, 2 WR, 1 TE, 2 FLEX, 1 DEF<br>
-        <strong>Bench:</strong> 25-man total roster<br>
-        <strong>Taxi Squad:</strong> 5 spots (rookies only, can be called up anytime)
-      </div></div>
-    </div>
-
-    <div class="accordion-item">
-      <button class="accordion-btn">
-        <span>&#128200; Scoring</span>
-        <span class="icon">+</span>
-      </button>
-      <div class="accordion-body"><div class="accordion-body-inner">
-        <strong>PPR</strong> — 1 point per reception. Standard scoring otherwise. Every catch counts, so load up on pass-catchers.
-      </div></div>
-    </div>
-
-    <div class="accordion-item">
-      <button class="accordion-btn">
-        <span>&#128176; Waivers</span>
-        <span class="icon">+</span>
-      </button>
-      <div class="accordion-body"><div class="accordion-body-inner">
-        <strong>FAAB</strong> (Free Agent Acquisition Budget) — $100 budget per season. Continuous waivers. Spend wisely — when it's gone, it's gone.
-      </div></div>
-    </div>
-
-    <div class="accordion-item">
-      <button class="accordion-btn">
-        <span>&#129309; Trades</span>
-        <span class="icon">+</span>
-      </button>
-      <div class="accordion-body"><div class="accordion-body-inner">
-        Trades are <strong>open year-round</strong>. No trade deadline in dynasty — wheeling and dealing never stops. Trade players, draft picks, and FAAB.
-      </div></div>
-    </div>
-
-    <div class="accordion-item">
-      <button class="accordion-btn">
-        <span>&#128221; Draft</span>
-        <span class="icon">+</span>
-      </button>
-      <div class="accordion-body"><div class="accordion-body-inner">
-        <strong>Startup Draft:</strong> All NFL players available. Build your dynasty from the ground up.<br>
-        <strong>Annual Rookie Draft:</strong> 5 rounds each year for incoming rookies.
-      </div></div>
-    </div>
-
-    <div class="accordion-item">
-      <button class="accordion-btn">
-        <span>&#127941; Playoffs</span>
-        <span class="icon">+</span>
-      </button>
-      <div class="accordion-body"><div class="accordion-body-inner">
-        <strong>Weeks 14–16.</strong> Top 6 teams make the playoffs. Top 2 seeds earn a first-round bye. Single elimination. Win or go home.
-      </div></div>
-    </div>
-
-    <div class="accordion-item">
-      <button class="accordion-btn">
-        <span>&#128178; Buy-In</span>
-        <span class="icon">+</span>
-      </button>
-      <div class="accordion-body"><div class="accordion-body-inner">
-        <strong>TBD</strong> — pending group vote. Options on the table: $50, $100, or free. Head to the Votes section to weigh in.
-      </div></div>
-    </div>
-
-  </div>
-</section>
-
-<!-- MANAGERS -->
+<!-- ═══════════ MANAGERS ═══════════ -->
 <section id="managers">
-  <div class="section-inner">
-    <h2 class="section-title">The Managers</h2>
-    <p class="section-subtitle">10 managers. 1 dynasty league. Endless bragging rights.</p>
-    <div class="managers-grid" id="managersGrid"></div>
+  <div class="reveal">
+    <p class="section-label">The Roster</p>
+    <h2 class="section-title">League Managers</h2>
+    <p class="section-desc">Ten committed owners. One dynasty to rule them all.</p>
+    <div class="section-divider"></div>
+  </div>
+  <div class="managers-grid">
+    <!-- Commissioner -->
+    <div class="manager-card commissioner reveal">
+      <div class="manager-avatar">
+        <img src="images/commish.png" alt="Josh Van Quick">
+      </div>
+      <p class="manager-name">Josh Van Quick</p>
+      <p class="manager-role">★ Commissioner</p>
+    </div>
+    <!-- Co-Commissioner -->
+    <div class="manager-card co-commissioner reveal">
+      <div class="manager-avatar">JD</div>
+      <p class="manager-name">Jason Dietzel</p>
+      <p class="manager-role">Co-Commissioner</p>
+    </div>
+    <!-- Managers -->
+    <div class="manager-card reveal">
+      <div class="manager-avatar">JC</div>
+      <p class="manager-name">Josh Cantrell</p>
+      <p class="manager-role">Manager</p>
+    </div>
+    <div class="manager-card reveal">
+      <div class="manager-avatar">PH</div>
+      <p class="manager-name">Patrick Howell</p>
+      <p class="manager-role">Manager</p>
+    </div>
+    <div class="manager-card reveal">
+      <div class="manager-avatar">EP</div>
+      <p class="manager-name">Evan Pozniakoff</p>
+      <p class="manager-role">Manager</p>
+    </div>
+    <div class="manager-card reveal">
+      <div class="manager-avatar">DN</div>
+      <p class="manager-name">Derrick Neely</p>
+      <p class="manager-role">Manager</p>
+    </div>
+    <div class="manager-card reveal">
+      <div class="manager-avatar">AQ</div>
+      <p class="manager-name">Aaron Quick</p>
+      <p class="manager-role">Manager</p>
+    </div>
+    <div class="manager-card reveal">
+      <div class="manager-avatar">DH</div>
+      <p class="manager-name">Drew Henderson</p>
+      <p class="manager-role">Manager</p>
+    </div>
+    <div class="manager-card reveal">
+      <div class="manager-avatar">MH</div>
+      <p class="manager-name">Mike Highsmith</p>
+      <p class="manager-role">Manager</p>
+    </div>
+    <div class="manager-card reveal">
+      <div class="manager-avatar">CA</div>
+      <p class="manager-name">Chad Albright</p>
+      <p class="manager-role">Manager</p>
+    </div>
   </div>
 </section>
 
-<!-- VOTES -->
+<!-- ═══════════ RULES ═══════════ -->
+<section id="rules">
+  <div class="reveal">
+    <p class="section-label">The Constitution</p>
+    <h2 class="section-title">League Rules</h2>
+    <p class="section-desc">The law of the land. Know it. Live it. Exploit it.</p>
+    <div class="section-divider"></div>
+  </div>
+  <div class="rules-grid">
+    <div class="rule-card reveal">
+      <p class="rule-label">Format</p>
+      <p class="rule-text">Dynasty league, 10 teams, hosted on the Sleeper platform. Built to last.</p>
+    </div>
+    <div class="rule-card reveal">
+      <p class="rule-label">Roster</p>
+      <p class="rule-text">1 QB · 2 RB · 2 WR · 1 TE · 2 FLEX · 1 DEF<br>25-man roster + 5 taxi squad spots</p>
+    </div>
+    <div class="rule-card reveal">
+      <p class="rule-label">Scoring</p>
+      <p class="rule-text">Full PPR — 1 point per reception. Reward the pass-catchers.</p>
+    </div>
+    <div class="rule-card reveal">
+      <p class="rule-label">Waivers</p>
+      <p class="rule-text">FAAB system with a $100 budget. Continuous waivers — no waiting.</p>
+    </div>
+    <div class="rule-card reveal">
+      <p class="rule-label">Trades</p>
+      <p class="rule-text">Open year-round. No trade deadlines in dynasty. Make your moves.</p>
+    </div>
+    <div class="rule-card reveal">
+      <p class="rule-label">Draft</p>
+      <p class="rule-text">Startup draft includes all players. Annual rookie draft — 5 rounds each year.</p>
+    </div>
+    <div class="rule-card reveal">
+      <p class="rule-label">Playoffs</p>
+      <p class="rule-text">Weeks 14–16. Top 6 teams qualify. Seeds 1 &amp; 2 earn a first-round bye.</p>
+    </div>
+    <div class="rule-card reveal">
+      <p class="rule-label">Taxi Squad</p>
+      <p class="rule-text">5 spots reserved for rookies only. Stash your future without burning a roster spot.</p>
+    </div>
+    <div class="rule-card reveal">
+      <p class="rule-label">Buy-In</p>
+      <p class="rule-text">To be determined. Open vote pending — see below.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VOTES ═══════════ -->
 <section id="votes">
-  <div class="section-inner">
+  <div class="reveal">
+    <p class="section-label">Action Required</p>
     <h2 class="section-title">Open Votes</h2>
-    <p class="section-subtitle">Decisions that need your input</p>
-    <div class="votes-grid">
-
-      <div class="vote-card">
-        <h3>&#127922; Draft Format</h3>
-        <p>How should we run the startup draft?</p>
-        <div class="vote-options">
-          <span class="vote-chip">Snake</span>
-          <span class="vote-chip">Auction</span>
-          <span class="vote-chip">Slow Email</span>
-        </div>
-      </div>
-
-      <div class="vote-card">
-        <h3>&#129462; Kickers</h3>
-        <p>Do we include kickers on the roster?</p>
-        <div class="vote-options">
-          <span class="vote-chip">Include</span>
-          <span class="vote-chip">Exclude</span>
-        </div>
-      </div>
-
-      <div class="vote-card">
-        <h3>&#128176; Buy-In Amount</h3>
-        <p>What's the annual buy-in?</p>
-        <div class="vote-options">
-          <span class="vote-chip">Free</span>
-          <span class="vote-chip">$50</span>
-          <span class="vote-chip">$100</span>
-        </div>
-      </div>
-
-      <div class="vote-card">
-        <h3>&#128128; Last Place Punishment</h3>
-        <p>What happens to the league's biggest loser?</p>
-        <div class="vote-options">
-          <span class="vote-chip">TBD — Suggest Ideas!</span>
-        </div>
-      </div>
-
-      <div class="vote-card">
-        <h3>&#128197; Draft Date</h3>
-        <p>Targeting late July. What works for everyone?</p>
-        <div class="vote-options">
-          <span class="vote-chip">Late July TBD</span>
-        </div>
-      </div>
-
-      <div class="vote-card">
-        <h3>&#9889; Superflex</h3>
-        <p>Should we add a Superflex roster spot (QB/RB/WR/TE)?</p>
-        <div class="vote-options">
-          <span class="vote-chip">Yes — Superflex</span>
-          <span class="vote-chip">No — Keep Standard</span>
-        </div>
-      </div>
-
+    <p class="section-desc">These decisions need your input. Speak now or forever hold your peace.</p>
+    <div class="section-divider"></div>
+  </div>
+  <div class="votes-grid">
+    <div class="vote-card reveal">
+      <p class="vote-question">Draft Format</p>
+      <p class="vote-options">Snake vs. Auction vs. Slow email draft</p>
     </div>
-
-    <div class="cta-box">
-      <h3>&#128227; Your Voice Matters</h3>
-      <p>Head to the group chat and cast your votes. These decisions shape our league for years to come.</p>
+    <div class="vote-card reveal">
+      <p class="vote-question">Kickers</p>
+      <p class="vote-options">Include or exclude from rosters?</p>
+    </div>
+    <div class="vote-card reveal">
+      <p class="vote-question">Buy-In Amount</p>
+      <p class="vote-options">What's the annual commitment?</p>
+    </div>
+    <div class="vote-card reveal">
+      <p class="vote-question">Last Place Punishment</p>
+      <p class="vote-options">What fate awaits the loser?</p>
+    </div>
+    <div class="vote-card reveal">
+      <p class="vote-question">Draft Date</p>
+      <p class="vote-options">When does the startup draft happen?</p>
+    </div>
+    <div class="vote-card reveal">
+      <p class="vote-question">Superflex</p>
+      <p class="vote-options">Add a Superflex spot to the roster?</p>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ═══════════ FOOTER ═══════════ -->
 <footer>
-  <p>The Cascade Hangover League &mdash; Dynasty Fantasy Football &mdash; Est. 2026</p>
-  <p style="margin-top:0.5rem;">Built with whiskey and ambition. Powered by VanQuick Tech.</p>
+  <p class="footer-brand">The Cascade Hangover League</p>
+  <p class="footer-sub">Powered by <a href="#">VanQuick Tech</a></p>
 </footer>
 
+<!-- ═══════════ SCRIPTS ═══════════ -->
 <script>
-/* ===== MANAGERS DATA ===== */
-var managers = [
-  { name: "Josh Van Quick", role: "Commissioner", initials: "JV" },
-  { name: "Jason Dietzel", role: "Co-Commissioner", initials: "JD" },
-  { name: "Josh Cantrell", role: "Manager", initials: "JC" },
-  { name: "Patrick Howell", role: "Manager", initials: "PH" },
-  { name: "Evan Pozniakoff", role: "Manager", initials: "EP" },
-  { name: "Derrick Neely", role: "Manager", initials: "DN" },
-  { name: "Aaron Quick", role: "Manager", initials: "AQ" },
-  { name: "Drew Henderson", role: "Manager", initials: "DH" },
-  { name: "Mike Highsmith", role: "Manager", initials: "MH" },
-  { name: "Chad Albright", role: "Manager", initials: "CA" }
-];
-
-var grid = document.getElementById("managersGrid");
-managers.forEach(function(m, i) {
-  var card = document.createElement("div");
-  card.className = "manager-card";
-  card.style.transitionDelay = (i * 0.07) + "s";
-  card.innerHTML =
-    '<div class="manager-avatar">' + m.initials + '</div>' +
-    '<div class="manager-name">' + m.name + '</div>' +
-    (m.role !== "Manager" ? '<div class="manager-role">' + m.role + '</div>' : '');
-  grid.appendChild(card);
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-/* ===== NAV TOGGLE ===== */
-var toggle = document.getElementById("navToggle");
-var links = document.getElementById("navLinks");
-toggle.addEventListener("click", function() {
-  links.classList.toggle("open");
+// Mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
 });
-links.addEventListener("click", function(e) {
-  if (e.target.tagName === "A") links.classList.remove("open");
-});
-
-/* ===== NAV SCROLL SHADOW ===== */
-var nav = document.getElementById("navbar");
-window.addEventListener("scroll", function() {
-  nav.classList.toggle("scrolled", window.scrollY > 20);
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => navLinks.classList.remove('open'));
 });
 
-/* ===== ACCORDION ===== */
-document.querySelectorAll(".accordion-btn").forEach(function(btn) {
-  btn.addEventListener("click", function() {
-    var item = btn.parentElement;
-    var wasOpen = item.classList.contains("open");
-    // close all
-    document.querySelectorAll(".accordion-item").forEach(function(ai) {
-      ai.classList.remove("open");
-    });
-    if (!wasOpen) item.classList.add("open");
-  });
+// Parallax hero
+const heroBg = document.getElementById('heroBg');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  if (scrolled < window.innerHeight) {
+    heroBg.style.transform = `translateY(${scrolled * 0.35}px) scale(1.1)`;
+  }
 });
 
-/* ===== SCROLL ANIMATIONS (Intersection Observer) ===== */
-function onIntersect(entries) {
-  entries.forEach(function(entry) {
+// Scroll-triggered reveals
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
+      // Stagger sibling reveals
+      const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+      let idx = Array.from(siblings).indexOf(entry.target);
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, Math.min(idx * 80, 400));
+      observer.unobserve(entry.target);
     }
   });
-}
-var observer = new IntersectionObserver(onIntersect, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
-
-document.querySelectorAll(".tl-item, .manager-card").forEach(function(el) {
-  observer.observe(el);
-});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
 </script>
 
 </body>
