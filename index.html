@@ -538,6 +538,278 @@ section {
 }
 
 /* ═══════════════════════════════════════════
+   THE GAUNTLET
+   ═══════════════════════════════════════════ */
+
+/* Full-bleed dark bg for gauntlet section */
+.gauntlet-wrapper {
+  background: linear-gradient(180deg, var(--black) 0%, #0f0b08 40%, #0d0907 100%);
+  border-top: 1px solid rgba(212,165,52,0.1);
+  border-bottom: 1px solid rgba(212,165,52,0.1);
+  padding: 6rem 0;
+}
+.gauntlet-wrapper > section {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* How it works */
+.gauntlet-how {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+.gauntlet-how-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-top: 3px solid var(--amber);
+  border-radius: 8px;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+}
+.gauntlet-how-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+.gauntlet-how-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.4rem;
+}
+.gauntlet-how-text {
+  font-size: 0.9rem;
+  color: var(--cream-dim);
+  line-height: 1.5;
+}
+
+/* Challenge table */
+.gauntlet-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 4rem;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+}
+.gauntlet-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.gauntlet-table thead {
+  background: linear-gradient(135deg, rgba(42,31,21,0.9), rgba(26,20,16,0.95));
+}
+.gauntlet-table th {
+  padding: 1rem 1.25rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--amber);
+  text-align: left;
+  border-bottom: 2px solid var(--amber);
+  white-space: nowrap;
+}
+.gauntlet-table td {
+  padding: 0.85rem 1.25rem;
+  color: var(--cream);
+  border-bottom: 1px solid rgba(212,165,52,0.07);
+  vertical-align: middle;
+}
+.gauntlet-table tbody tr {
+  background: rgba(13,9,7,0.6);
+  transition: background 0.2s;
+}
+.gauntlet-table tbody tr:nth-child(even) {
+  background: rgba(26,20,16,0.5);
+}
+.gauntlet-table tbody tr:hover {
+  background: rgba(212,165,52,0.06);
+}
+.challenge-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: 0.95rem;
+}
+.challenge-week {
+  font-size: 0.75rem;
+  color: var(--amber);
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 1px;
+}
+.difficulty-stars {
+  display: flex;
+  gap: 3px;
+  white-space: nowrap;
+}
+.star { font-size: 0.75rem; }
+.star.filled { color: var(--amber); }
+.star.empty { color: rgba(212,165,52,0.2); }
+
+/* Ring tiers */
+.ring-tiers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+.ring-tier-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.ring-tier-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--amber), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.ring-tier-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+.ring-tier-card:hover::before { opacity: 1; }
+.ring-tier-card.top-tier {
+  border-color: var(--amber);
+  background: linear-gradient(145deg, rgba(42,31,21,0.85), rgba(26,20,16,0.9));
+  box-shadow: 0 0 30px rgba(212,165,52,0.08);
+}
+.ring-count {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--amber);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.ring-icon-row {
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.75rem;
+  min-height: 1.5rem;
+}
+.ring-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-bottom: 0.5rem;
+}
+.ring-reward {
+  font-size: 0.85rem;
+  color: var(--cream);
+  line-height: 1.5;
+}
+
+/* Gauntlet Champion */
+.gauntlet-champion {
+  background: linear-gradient(135deg, rgba(42,31,21,0.8), rgba(26,20,16,0.95));
+  border: 2px solid var(--amber);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(212,165,52,0.1), 0 0 120px rgba(212,165,52,0.04);
+}
+.gauntlet-champion::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+.champion-crown {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  display: block;
+  filter: drop-shadow(0 0 20px rgba(212,165,52,0.5));
+  animation: crownPulse 3s ease-in-out infinite;
+}
+@keyframes crownPulse {
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(212,165,52,0.4)); }
+  50% { filter: drop-shadow(0 0 35px rgba(212,165,52,0.7)); }
+}
+.champion-title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 900;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.champion-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 2rem;
+}
+.champion-perks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+}
+.champion-perk {
+  background: rgba(13,9,7,0.5);
+  border: 1px solid rgba(212,165,52,0.15);
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-align: left;
+}
+.champion-perk-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.champion-perk-text {
+  font-size: 0.85rem;
+  color: var(--cream);
+  line-height: 1.5;
+}
+.champion-tiebreaker {
+  font-size: 0.8rem;
+  color: var(--cream-dim);
+  font-style: italic;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.champion-tiebreaker strong {
+  color: var(--amber);
+}
+
+/* Responsive gauntlet */
+@media (max-width: 768px) {
+  .ring-tiers { grid-template-columns: repeat(2, 1fr); }
+  .gauntlet-how { grid-template-columns: repeat(2, 1fr); }
+  .champion-perks { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .ring-tiers { grid-template-columns: 1fr 1fr; }
+  .gauntlet-how { grid-template-columns: 1fr; }
+  .champion-perks { grid-template-columns: 1fr; }
+  .gauntlet-table td, .gauntlet-table th { padding: 0.65rem 0.75rem; }
+}
+
+/* ═══════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════ */
 footer {
@@ -609,6 +881,7 @@ footer {
     <li><a href="#timeline">Timeline</a></li>
     <li><a href="#managers">Managers</a></li>
     <li><a href="#rules">Rules</a></li>
+    <li><a href="#gauntlet">The Gauntlet</a></li>
     <li><a href="#votes">Votes</a></li>
   </ul>
 </nav>
@@ -808,6 +1081,227 @@ footer {
     </div>
   </div>
 </section>
+
+<!-- ═══════════ THE GAUNTLET ═══════════ -->
+<div class="gauntlet-wrapper">
+<section id="gauntlet">
+
+  <div class="reveal">
+    <p class="section-label">Season-Long Challenge System</p>
+    <h2 class="section-title">The Gauntlet</h2>
+    <p class="section-desc">17 weekly challenges. Every manager earns Rings by letting their lineup do the talking. No extra work — just play your team and collect.</p>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="gauntlet-how reveal">
+    <div class="gauntlet-how-card">
+      <div class="gauntlet-how-icon">📋</div>
+      <p class="gauntlet-how-title">Tuesday</p>
+      <p class="gauntlet-how-text">Commissioner posts the weekly challenge in the league chat.</p>
+    </div>
+    <div class="gauntlet-how-card">
+      <div class="gauntlet-how-icon">🏈</div>
+      <p class="gauntlet-how-title">Play Your Team</p>
+      <p class="gauntlet-how-text">No signups required. Hit the criteria with your actual lineup.</p>
+    </div>
+    <div class="gauntlet-how-card">
+      <div class="gauntlet-how-icon">🔍</div>
+      <p class="gauntlet-how-title">After MNF</p>
+      <p class="gauntlet-how-text">Results verified from box scores. Completions logged to the leaderboard.</p>
+    </div>
+    <div class="gauntlet-how-card">
+      <div class="gauntlet-how-icon">💍</div>
+      <p class="gauntlet-how-title">Earn Rings</p>
+      <p class="gauntlet-how-text">Stack Rings all season. Unlock rewards at 3, 5, 7, and 10.</p>
+    </div>
+  </div>
+
+  <!-- Weekly Challenges Table -->
+  <div class="reveal" style="margin-bottom: 1rem;">
+    <p class="section-label">The Schedule</p>
+    <h3 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2.25rem);">17 Weekly Challenges</h3>
+  </div>
+  <div class="gauntlet-table-wrap reveal">
+    <table class="gauntlet-table">
+      <thead>
+        <tr>
+          <th>Wk</th>
+          <th>Challenge</th>
+          <th>What You Gotta Do</th>
+          <th>Difficulty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="challenge-week">01</span></td>
+          <td><span class="challenge-name">Ground &amp; Pound</span></td>
+          <td>Start 2 RBs who each score a TD</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">02</span></td>
+          <td><span class="challenge-name">Gunslinger</span></td>
+          <td>Your QB throws for 300+ yards in a win</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">03</span></td>
+          <td><span class="challenge-name">Spotlight Player</span></td>
+          <td>A player you started scores 25+ points</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">04</span></td>
+          <td><span class="challenge-name">Nail Biter</span></td>
+          <td>Win your matchup by 3 points or less</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">05</span></td>
+          <td><span class="challenge-name">Waiver Wire Hero</span></td>
+          <td>Start a waiver pickup (added that week) who outscores a starter</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">06</span></td>
+          <td><span class="challenge-name">Tight End Takeover</span></td>
+          <td>Your TE outscores your opponent's TE by 10+ points</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">07</span></td>
+          <td><span class="challenge-name">Blowout Week</span></td>
+          <td>Score 150+ total points in a week</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">08</span></td>
+          <td><span class="challenge-name">Comeback Kid</span></td>
+          <td>Win after being projected to lose by 15+ points</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">09</span></td>
+          <td><span class="challenge-name">Hat Trick</span></td>
+          <td>Have 3 players score 20+ in the same week</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">10</span></td>
+          <td><span class="challenge-name">Rookie of the Week</span></td>
+          <td>Start a rookie (taxi-eligible) who scores 15+</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">11</span></td>
+          <td><span class="challenge-name">Overachiever</span></td>
+          <td>Win with your lowest-projected starter outscoring their projection by 10+</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">12</span></td>
+          <td><span class="challenge-name">QB Controversy</span></td>
+          <td>Your Superflex QB2 outscores your QB1</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">13</span></td>
+          <td><span class="challenge-name">Ride or Die</span></td>
+          <td>Hold the same starting lineup as last week and win</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">14</span></td>
+          <td><span class="challenge-name">Photo Finish</span></td>
+          <td>Win by the closest margin of the week (nearest to 1 decimal point)</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">15</span></td>
+          <td><span class="challenge-name">Trash Talk King</span></td>
+          <td>Post the best trash talk of the week — league vote decides</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">16</span></td>
+          <td><span class="challenge-name">Crystal Ball</span></td>
+          <td>Predict your exact score within 5 points before kickoff</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="challenge-week">17</span></td>
+          <td><span class="challenge-name">Lockdown Defense</span></td>
+          <td>Hold your opponent under 90 total points</td>
+          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Ring Rewards -->
+  <div class="reveal" style="margin-bottom: 1.5rem;">
+    <p class="section-label">Rewards</p>
+    <h3 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2.25rem);">Ring Milestones</h3>
+    <p class="section-desc" style="margin-bottom: 1.5rem;">Rewards stack — hit 10 rings and you've earned them all. Multiple managers can unlock each tier.</p>
+  </div>
+  <div class="ring-tiers reveal">
+    <div class="ring-tier-card">
+      <div class="ring-count">3</div>
+      <div class="ring-icon-row">💍💍💍</div>
+      <p class="ring-label">Bronze Run</p>
+      <p class="ring-reward">+$10 FAAB added to your budget immediately</p>
+    </div>
+    <div class="ring-tier-card">
+      <div class="ring-count">5</div>
+      <div class="ring-icon-row">💍💍💍💍💍</div>
+      <p class="ring-label">Five-Ring Club</p>
+      <p class="ring-reward">Your choice: Taxi squad promotion <em>or</em> +$10 more FAAB</p>
+    </div>
+    <div class="ring-tier-card">
+      <div class="ring-count">7</div>
+      <div class="ring-icon-row">💍💍💍💍💍💍💍</div>
+      <p class="ring-label">Ring Leader</p>
+      <p class="ring-reward">Supplemental 5th-round rookie draft pick in the next draft</p>
+    </div>
+    <div class="ring-tier-card top-tier">
+      <div class="ring-count">10</div>
+      <div class="ring-icon-row">💍💍💍💍💍💍💍💍💍💍</div>
+      <p class="ring-label">Full Gauntlet</p>
+      <p class="ring-reward">Trade deadline extended 1 week past the league deadline</p>
+    </div>
+  </div>
+
+  <!-- Gauntlet Champion -->
+  <div class="gauntlet-champion reveal">
+    <span class="champion-crown">👑</span>
+    <h3 class="champion-title">Gauntlet Champion</h3>
+    <p class="champion-subtitle">Most Rings at Season End — One Winner Takes All</p>
+    <div class="champion-perks">
+      <div class="champion-perk">
+        <span class="champion-perk-icon">⚖️</span>
+        <p class="champion-perk-text"><strong>Name the Punishment</strong> — You pick last place's fate (Commissioner veto applies if truly insane)</p>
+      </div>
+      <div class="champion-perk">
+        <span class="champion-perk-icon">🎯</span>
+        <p class="champion-perk-text"><strong>Commissioner for a Day</strong> — Design one challenge that runs in next season's Gauntlet</p>
+      </div>
+      <div class="champion-perk">
+        <span class="champion-perk-icon">📈</span>
+        <p class="champion-perk-text"><strong>Draft Position Bump</strong> — Swap your rookie draft spot up 2 positions</p>
+      </div>
+      <div class="champion-perk">
+        <span class="champion-perk-icon">🏆</span>
+        <p class="champion-perk-text"><strong>Gauntlet Champion Title</strong> — Permanent record in league history</p>
+      </div>
+    </div>
+    <p class="champion-tiebreaker">
+      <strong>Tiebreaker:</strong> Most rings in a single week → head-to-head record → coin flip in the group chat
+    </p>
+  </div>
+
+</section>
+</div>
 
 <!-- ═══════════ VOTES ═══════════ -->
 <section id="votes">
