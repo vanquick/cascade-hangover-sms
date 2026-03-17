@@ -386,11 +386,6 @@ section {
   color: var(--amber);
   background: linear-gradient(135deg, var(--brown), var(--brown-light));
   border: 2px solid rgba(212,165,52,0.2);
-  overflow: hidden;
-}
-.manager-avatar img {
-  width: 100%; height: 100%;
-  object-fit: cover;
 }
 .manager-name {
   font-family: 'Playfair Display', serif;
@@ -493,10 +488,6 @@ section {
   overflow: hidden;
   animation: votePulse 3s ease-in-out infinite;
   transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-  display: block;
 }
 .vote-card:hover {
   transform: translateY(-3px);
@@ -527,6 +518,13 @@ section {
   font-size: 0.85rem;
   color: var(--cream-dim);
   font-style: italic;
+}
+
+.vote-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
 }
 
 @keyframes votePulse {
@@ -702,24 +700,20 @@ footer {
     <!-- Commissioner -->
     <div class="manager-card commissioner reveal">
       <div class="manager-avatar">
-        <img src="images/headshots/josh-vanquick.png" alt="Josh Van Quick">
+        <img src="images/commish.png" alt="Josh Van Quick">
       </div>
       <p class="manager-name">Josh Van Quick</p>
       <p class="manager-role">★ Commissioner</p>
     </div>
     <!-- Co-Commissioner -->
     <div class="manager-card co-commissioner reveal">
-      <div class="manager-avatar">
-        <img src="images/headshots/jason-dietzel.png" alt="Jason Dietzel">
-      </div>
+      <div class="manager-avatar">JD</div>
       <p class="manager-name">Jason Dietzel</p>
       <p class="manager-role">Co-Commissioner</p>
     </div>
     <!-- Managers -->
     <div class="manager-card reveal">
-      <div class="manager-avatar">
-        <img src="images/headshots/josh-cantrell.png" alt="Josh Cantrell">
-      </div>
+      <div class="manager-avatar">JC</div>
       <p class="manager-name">Josh Cantrell</p>
       <p class="manager-role">Manager</p>
     </div>
@@ -729,9 +723,7 @@ footer {
       <p class="manager-role">Manager</p>
     </div>
     <div class="manager-card reveal">
-      <div class="manager-avatar">
-        <img src="images/headshots/evan-pozniakoff.png" alt="Evan Pozniakoff">
-      </div>
+      <div class="manager-avatar">EP</div>
       <p class="manager-name">Evan Pozniakoff</p>
       <p class="manager-role">Manager</p>
     </div>
@@ -741,9 +733,7 @@ footer {
       <p class="manager-role">Manager</p>
     </div>
     <div class="manager-card reveal">
-      <div class="manager-avatar">
-        <img src="images/headshots/aaron-quick.png" alt="Aaron Quick">
-      </div>
+      <div class="manager-avatar">AQ</div>
       <p class="manager-name">Aaron Quick</p>
       <p class="manager-role">Manager</p>
     </div>
@@ -753,9 +743,7 @@ footer {
       <p class="manager-role">Manager</p>
     </div>
     <div class="manager-card reveal">
-      <div class="manager-avatar">
-        <img src="images/headshots/mike-highsmith.png" alt="Mike Highsmith">
-      </div>
+      <div class="manager-avatar">MH</div>
       <p class="manager-name">Mike Highsmith</p>
       <p class="manager-role">Manager</p>
     </div>
@@ -824,29 +812,41 @@ footer {
     <div class="section-divider"></div>
   </div>
   <div class="votes-grid">
-    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-card reveal">
-      <p class="vote-question">Draft Format</p>
-      <p class="vote-options">Snake vs. Auction vs. Slow email draft</p>
+    <a href="https://discord.com/channels/555597332767309839/1483171902477570229/1483491258910642207" target="_blank" rel="noopener" class="vote-link">
+      <div class="vote-card reveal">
+        <p class="vote-question">Draft Format</p>
+        <p class="vote-options">Snake vs. Auction vs. Slow email draft</p>
+      </div>
     </a>
-    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-card reveal">
-      <p class="vote-question">Kickers</p>
-      <p class="vote-options">Include or exclude from rosters?</p>
+    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-link">
+      <div class="vote-card reveal">
+        <p class="vote-question">Kickers</p>
+        <p class="vote-options">Include or exclude from rosters?</p>
+      </div>
     </a>
-    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-card reveal">
-      <p class="vote-question">Buy-In Amount</p>
-      <p class="vote-options">What's the annual commitment?</p>
+    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-link">
+      <div class="vote-card reveal">
+        <p class="vote-question">Buy-In Amount</p>
+        <p class="vote-options">What's the annual commitment?</p>
+      </div>
     </a>
-    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-card reveal">
-      <p class="vote-question">Last Place Punishment</p>
-      <p class="vote-options">What fate awaits the loser?</p>
+    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-link">
+      <div class="vote-card reveal">
+        <p class="vote-question">Last Place Punishment</p>
+        <p class="vote-options">What fate awaits the loser?</p>
+      </div>
     </a>
-    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-card reveal">
-      <p class="vote-question">Draft Date</p>
-      <p class="vote-options">When does the startup draft happen?</p>
+    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-link">
+      <div class="vote-card reveal">
+        <p class="vote-question">Draft Date</p>
+        <p class="vote-options">When does the startup draft happen?</p>
+      </div>
     </a>
-    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-card reveal">
-      <p class="vote-question">Superflex</p>
-      <p class="vote-options">Add a Superflex spot to the roster?</p>
+    <a href="https://discord.com/channels/555597332767309839/1483171902477570229" target="_blank" rel="noopener" class="vote-link">
+      <div class="vote-card reveal">
+        <p class="vote-question">Superflex</p>
+        <p class="vote-options">Add a Superflex spot to the roster?</p>
+      </div>
     </a>
   </div>
 </section>
