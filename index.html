@@ -879,7 +879,231 @@ footer {
   .votes-grid { grid-template-columns: 1fr; }
   section { padding: 4rem 1.25rem; }
 }
-</style>
+
+    /* ═══ DRAFT SECTION ═══ */
+    #draft {
+      background: var(--bg-deep);
+    }
+
+    .draft-banner {
+      background: linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(245,158,11,0.05) 100%);
+      border: 1px solid var(--amber);
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .draft-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(245,158,11,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .draft-banner-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+
+    .draft-date-big {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .draft-date-big span { color: var(--amber); }
+
+    .draft-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1.25rem 0 1.5rem;
+    }
+
+    .draft-meta-pill {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--amber);
+      letter-spacing: 0.04em;
+    }
+
+    .draft-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+
+    .draft-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: transform 0.15s, opacity 0.2s;
+    }
+
+    .draft-link-btn:hover { transform: translateY(-2px); opacity: 0.85; }
+    .draft-link-btn.primary { background: var(--amber); color: #000; }
+    .draft-link-btn.secondary { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.4); color: var(--amber); }
+
+    .countdown-wrap {
+      margin: 1.5rem auto 0;
+      max-width: 500px;
+    }
+
+    .countdown-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+
+    .countdown-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 64px;
+    }
+
+    .countdown-num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.8rem;
+      line-height: 1;
+      color: var(--amber);
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 8px;
+      padding: 0.4rem 0.75rem;
+      min-width: 64px;
+      text-align: center;
+    }
+
+    .countdown-unit {
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* Draft order table */
+    .draft-order-wrap {
+      margin-top: 0.5rem;
+    }
+
+    .draft-order-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .draft-order-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .pick-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .pick-card:hover { border-color: var(--amber); transform: translateY(-2px); }
+
+    .pick-num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.8rem;
+      color: var(--amber);
+      line-height: 1;
+      min-width: 2rem;
+      text-align: center;
+    }
+
+    .pick-photo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(245,158,11,0.3);
+      flex-shrink: 0;
+    }
+
+    .pick-photo-placeholder {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(245,158,11,0.1);
+      border: 2px solid rgba(245,158,11,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--amber);
+      flex-shrink: 0;
+    }
+
+    .pick-info { flex: 1; min-width: 0; }
+
+    .pick-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pick-handle {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+
+    .pick-tbd { color: var(--amber); font-style: italic; }
+
+    @media (max-width: 480px) {
+      .draft-order-grid { grid-template-columns: 1fr; }
+      .countdown-num { font-size: 2rem; min-width: 50px; }
+    }
+
+  </style>
 </head>
 <body>
 
@@ -891,6 +1115,7 @@ footer {
   </button>
   <ul class="nav-links" id="navLinks">
     <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#draft">Draft</a></li>
     <li><a href="#managers">Managers</a></li>
     <li><a href="#rules">Rules</a></li>
     <li><a href="#gauntlet">The Gauntlet</a></li>
@@ -909,6 +1134,139 @@ footer {
     <a href="#timeline" class="hero-cta">Enter the League</a>
   </div>
   <div class="hero-scroll"><span></span></div>
+</section>
+
+
+<!-- ═══════════ DRAFT ═══════════ -->
+<section id="draft">
+  <div class="reveal">
+    <p class="section-label">2026 Startup Draft</p>
+    <h2 class="section-title">Draft Day is Set</h2>
+    <p class="section-desc">The moment ten dynasties begin. Every starter, every dynasty piece — all drafted in one shot.</p>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="draft-banner reveal">
+    <p class="draft-banner-label">🏈 The Cascade Hangover League — 2026 Startup Draft</p>
+    <p class="draft-date-big">Saturday, <span>August 1</span></p>
+    <p class="draft-date-big" style="font-size: clamp(1.8rem,4vw,3rem); margin-top:0.25rem;">3:00 PM <span>PDT</span></p>
+    <div class="draft-meta">
+      <span class="draft-meta-pill">🐍 Snake Format</span>
+      <span class="draft-meta-pill">2 Rounds</span>
+      <span class="draft-meta-pill">⏱ 120-sec Pick Timer</span>
+      <span class="draft-meta-pill">10 Teams</span>
+    </div>
+    <div class="draft-links">
+      <a class="draft-link-btn primary" href="https://sleeper.com/draft/nfl/1342293791159115776" target="_blank" rel="noopener">📋 Open Draft Board</a>
+      <a class="draft-link-btn secondary" href="https://sleeper.com/leagues/1342293791142313984" target="_blank" rel="noopener">🏆 League Page</a>
+    </div>
+    <div class="countdown-wrap" id="countdownWrap">
+      <p class="countdown-label">Countdown to Draft Day</p>
+      <div class="countdown" id="countdown">
+        <div class="countdown-block"><span class="countdown-num" id="cd-days">--</span><span class="countdown-unit">Days</span></div>
+        <div class="countdown-block"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-unit">Hours</span></div>
+        <div class="countdown-block"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-unit">Mins</span></div>
+        <div class="countdown-block"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-unit">Secs</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="draft-order-wrap reveal">
+    <h3 class="draft-order-title">Draft Order</h3>
+    <div class="draft-order-grid">
+
+      <div class="pick-card">
+        <span class="pick-num">1</span>
+        <img class="pick-photo" src="images/headshots/josh_cantrell.jpg" alt="Josh Cantrell">
+        <div class="pick-info">
+          <p class="pick-name">Josh Cantrell</p>
+          <p class="pick-handle">Canman1980</p>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <span class="pick-num">2</span>
+        <img class="pick-photo" src="images/headshots/drew_henderson.jpg" alt="Drew Henderson">
+        <div class="pick-info">
+          <p class="pick-name">Drew Henderson</p>
+          <p class="pick-handle">BallzDeepManagement</p>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <span class="pick-num">3</span>
+        <img class="pick-photo" src="images/headshots/chris_rogers.jpg" alt="Chris Rogers">
+        <div class="pick-info">
+          <p class="pick-name">Chris Rogers</p>
+          <p class="pick-handle">jollyroger79</p>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <span class="pick-num">4</span>
+        <img class="pick-photo" src="images/headshots/evan_pozniakoff.jpg" alt="Evan Pozniakoff">
+        <div class="pick-info">
+          <p class="pick-name">Evan Pozniakoff</p>
+          <p class="pick-handle">SlimReeper23</p>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <span class="pick-num">5</span>
+        <img class="pick-photo" src="images/headshots/patrick_howell.jpg" alt="Patrick Howell">
+        <div class="pick-info">
+          <p class="pick-name">Patrick Howell</p>
+          <p class="pick-handle">AchaneInTheMembrane2</p>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <span class="pick-num">6</span>
+        <img class="pick-photo" src="images/headshots/josh_van_quick.jpg" alt="Josh Van Quick">
+        <div class="pick-info">
+          <p class="pick-name">Josh Van Quick</p>
+          <p class="pick-handle">VanQuick · Vicious VQ's</p>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <span class="pick-num">7</span>
+        <img class="pick-photo" src="images/headshots/jason_dietzel.jpg" alt="Jason Dietzel">
+        <div class="pick-info">
+          <p class="pick-name">Jason Dietzel</p>
+          <p class="pick-handle">Dietzel80</p>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <span class="pick-num">8</span>
+        <img class="pick-photo" src="images/headshots/aaron_quick.jpg" alt="Aaron Quick">
+        <div class="pick-info">
+          <p class="pick-name">Aaron Quick</p>
+          <p class="pick-handle">Quick67 · Quick</p>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <span class="pick-num">9</span>
+        <img class="pick-photo" src="images/headshots/chad_albright.jpg" alt="Chad Albright">
+        <div class="pick-info">
+          <p class="pick-name">Chad Albright</p>
+          <p class="pick-handle">LAChokers</p>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <span class="pick-num">10</span>
+        <img class="pick-photo" src="images/headshots/mike_highsmith.jpg" alt="Mike Highsmith">
+        <div class="pick-info">
+          <p class="pick-name">Mike Highsmith</p>
+          <p class="pick-handle">mwhighsmith · Real Men of Genius</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════ TIMELINE ═══════════ -->
@@ -957,8 +1315,8 @@ footer {
     <div class="tl-item tl-highlight reveal">
       <div class="tl-dot"></div>
       <div class="tl-card">
-        <p class="tl-date">July / August 2026</p>
-        <p class="tl-text">The Draft — every player in the NFL is on the board. Veterans and rookies, all in one shot.</p>
+        <p class="tl-date">August 1, 2026 · 3:00 PM PDT</p>
+        <p class="tl-text">The Startup Draft is locked — 2 rounds, snake format, 120-second pick timer. Ten managers. One shot to build a dynasty.</p>
       </div>
     </div>
     <div class="tl-item tl-highlight reveal">
@@ -983,7 +1341,7 @@ footer {
     <!-- Commissioner -->
     <div class="manager-card commissioner reveal">
       <div class="manager-avatar">
-        <img src="images/headshots/josh-vanquick.png" alt="Josh Van Quick">
+        <img src="images/headshots/josh_van_quick.jpg" alt="Josh Van Quick">
       </div>
       <p class="manager-name">Josh Van Quick</p>
       <p class="manager-role">Vicious VQ's</p>
@@ -992,7 +1350,7 @@ footer {
     <!-- Co-Commissioner -->
     <div class="manager-card co-commissioner reveal">
       <div class="manager-avatar">
-        <img src="images/headshots/jason-dietzel.png" alt="Jason Dietzel">
+        <img src="images/headshots/jason_dietzel.jpg" alt="Jason Dietzel">
       </div>
       <p class="manager-name">Jason Dietzel</p>
       <p class="manager-role">Dietzel80</p>
@@ -1001,49 +1359,49 @@ footer {
     <!-- Managers -->
     <div class="manager-card reveal">
       <div class="manager-avatar">
-        <img src="images/headshots/josh-cantrell.png" alt="Josh Cantrell">
+        <img src="images/headshots/josh_cantrell.jpg" alt="Josh Cantrell">
       </div>
       <p class="manager-name">Josh Cantrell</p>
       <p class="manager-role">Canman1980</p>
     </div>
     <div class="manager-card reveal">
-      <div class="manager-avatar">PH</div>
+      <div class="manager-avatar"><img src="images/headshots/patrick_howell.jpg" alt="Patrick Howell"></div>
       <p class="manager-name">Patrick Howell</p>
       <p class="manager-role">AchaneInTheMembrane2</p>
     </div>
     <div class="manager-card reveal">
       <div class="manager-avatar">
-        <img src="images/headshots/evan-pozniakoff.png" alt="Evan Pozniakoff">
+        <img src="images/headshots/evan_pozniakoff.jpg" alt="Evan Pozniakoff">
       </div>
       <p class="manager-name">Evan Pozniakoff</p>
       <p class="manager-role">SlimReeper23</p>
     </div>
     <div class="manager-card reveal">
-      <div class="manager-avatar">DN</div>
-      <p class="manager-name">Derrick Neely</p>
-      <p class="manager-role">2 Gurleys, 1 Cupp</p>
+      <div class="manager-avatar"><img src="images/headshots/chris_rogers.jpg" alt="Chris Rogers"></div>
+      <p class="manager-name">Chris Rogers</p>
+      <p class="manager-role">jollyroger79</p>
     </div>
     <div class="manager-card reveal">
       <div class="manager-avatar">
-        <img src="images/headshots/aaron-quick.png" alt="Aaron Quick">
+        <img src="images/headshots/aaron_quick.jpg" alt="Aaron Quick">
       </div>
       <p class="manager-name">Aaron Quick</p>
       <p class="manager-role">Quick</p>
     </div>
     <div class="manager-card reveal">
-      <div class="manager-avatar">DH</div>
+      <div class="manager-avatar"><img src="images/headshots/drew_henderson.jpg" alt="Drew Henderson"></div>
       <p class="manager-name">Drew Henderson</p>
       <p class="manager-role">BallzDeepManagement</p>
     </div>
     <div class="manager-card reveal">
       <div class="manager-avatar">
-        <img src="images/headshots/mike-highsmith.png" alt="Mike Highsmith">
+        <img src="images/headshots/mike_highsmith.jpg" alt="Mike Highsmith">
       </div>
       <p class="manager-name">Mike Highsmith</p>
       <p class="manager-role">Real Men of Genius</p>
     </div>
     <div class="manager-card reveal">
-      <div class="manager-avatar">CA</div>
+      <div class="manager-avatar"><img src="images/headshots/chad_albright.jpg" alt="Chad Albright"></div>
       <p class="manager-name">Chad Albright</p>
       <p class="manager-role">LAChokers</p>
     </div>
@@ -1422,6 +1780,31 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => observer.observe(el));
+
+  // ─── Draft Countdown
+  (function() {
+    var target = new Date('2026-08-01T22:00:00Z'); // 3PM PDT = 22:00 UTC
+    function pad(n) { return String(n).padStart(2,'0'); }
+    function tick() {
+      var now = new Date();
+      var diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('countdownWrap').innerHTML = '<p class="draft-banner-label" style="font-size:1.2rem">🏈 Draft is LIVE!</p>';
+        return;
+      }
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor((diff % 86400000) / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-days').textContent = d;
+      document.getElementById('cd-hours').textContent = pad(h);
+      document.getElementById('cd-mins').textContent = pad(m);
+      document.getElementById('cd-secs').textContent = pad(s);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
 </script>
 
 </body>
