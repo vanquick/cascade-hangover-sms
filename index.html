@@ -808,11 +808,125 @@ section {
   color: var(--amber);
 }
 
+/* ═══════════════════════════════════════════
+   MANAGERS / MEET THE LEAGUE
+   ═══════════════════════════════════════════ */
+.managers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+.manager-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-left: 3px solid var(--amber);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s, border-left-color 0.3s;
+}
+.manager-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  border-left-color: var(--gold);
+}
+.manager-header {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  color: var(--cream);
+  font-family: 'Inter', sans-serif;
+  text-align: left;
+}
+.manager-header:hover .manager-name { color: var(--amber); }
+.manager-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brown-light), var(--brown));
+  border: 1px solid var(--amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--amber);
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.manager-meta { flex: 1; min-width: 0; }
+.manager-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cream);
+  transition: color 0.3s;
+  line-height: 1.2;
+}
+.manager-team {
+  font-size: 0.72rem;
+  color: var(--amber);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+.manager-team.tbd { color: var(--cream-dim); opacity: 0.6; }
+.manager-chevron {
+  color: var(--amber);
+  font-size: 1.1rem;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.manager-card.open .manager-chevron { transform: rotate(180deg); }
+.manager-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.manager-card.open .manager-body { max-height: 1200px; }
+.manager-qa {
+  padding: 0 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-top: 1px solid var(--glass-border);
+  padding-top: 1.25rem;
+  margin-top: 0.25rem;
+}
+.qa-item { display: flex; flex-direction: column; gap: 0.35rem; }
+.qa-q {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.qa-a {
+  font-size: 0.92rem;
+  color: var(--cream);
+  line-height: 1.55;
+}
+.qa-a.pending {
+  color: var(--cream-dim);
+  font-style: italic;
+  opacity: 0.65;
+}
+
 /* Responsive gauntlet */
 @media (max-width: 768px) {
   .ring-tiers { grid-template-columns: repeat(2, 1fr); }
   .gauntlet-how { grid-template-columns: repeat(2, 1fr); }
   .champion-perks { grid-template-columns: 1fr 1fr; }
+  .managers-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
   .ring-tiers { grid-template-columns: 1fr 1fr; }
@@ -1115,6 +1229,7 @@ footer {
   </button>
   <ul class="nav-links" id="navLinks">
     <li><a href="#draft">Draft</a></li>
+    <li><a href="#managers">Managers</a></li>
     <li><a href="#votes">Open Votes</a></li>
     <li><a href="#rules">Rules</a></li>
     <li><a href="#gauntlet">The Gauntlet</a></li>
@@ -1273,8 +1388,229 @@ footer {
   </div>
 </section>
 
-<!-- ═══════════ TIMELINE ═══════════ -->
+<!-- ═══════════ MANAGERS / MEET THE LEAGUE ═══════════ -->
+<section id="managers">
+  <div class="reveal">
+    <p class="section-label">Meet the League</p>
+    <h2 class="section-title">The Managers</h2>
+    <p class="section-desc">Ten managers. Ten stories. Click a card to see how they got here, who they think should be scared, and what they had to say about the rest of you.</p>
+    <div class="section-divider"></div>
+  </div>
 
+  <div class="managers-grid">
+
+    <!-- Josh Van Quick -->
+    <div class="manager-card reveal">
+      <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
+        <div class="manager-avatar">JV</div>
+        <div class="manager-meta">
+          <div class="manager-name">Joshua Van Quick</div>
+          <div class="manager-team">Vicious VQ&#39;s</div>
+        </div>
+        <span class="manager-chevron">▾</span>
+      </button>
+      <div class="manager-body">
+        <div class="manager-qa">
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a">Ravens</p></div>
+          <div class="qa-item"><p class="qa-q">Season 1 Prediction</p><p class="qa-a">Cantrell won&#39;t be last.</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a">I&#39;m not saying I&#39;m better than everyone else. The standings usually say that for me.</p></div>
+          <div class="qa-item"><p class="qa-q">How I Got Started</p><p class="qa-a pending">Still to submit</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a pending">Still to submit</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jason Dietzel -->
+    <div class="manager-card reveal">
+      <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
+        <div class="manager-avatar">JD</div>
+        <div class="manager-meta">
+          <div class="manager-name">Jason Dietzel</div>
+          <div class="manager-team">Dietzel80</div>
+        </div>
+        <span class="manager-chevron">▾</span>
+      </button>
+      <div class="manager-body">
+        <div class="manager-qa">
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a">Seahawks</p></div>
+          <div class="qa-item"><p class="qa-q">Season 1 Prediction</p><p class="qa-a">I will dominate this league.</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a">Daddy&#39;s home fellas, don&#39;t worry I will be gentle... Ok no I won&#39;t, but I will be quick.</p></div>
+          <div class="qa-item"><p class="qa-q">How I Got Started</p><p class="qa-a pending">Still to submit</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a pending">Still to submit</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Josh Cantrell -->
+    <div class="manager-card reveal">
+      <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
+        <div class="manager-avatar">JC</div>
+        <div class="manager-meta">
+          <div class="manager-name">Josh Cantrell</div>
+          <div class="manager-team">MNM_VR</div>
+        </div>
+        <span class="manager-chevron">▾</span>
+      </button>
+      <div class="manager-body">
+        <div class="manager-qa">
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a">Whatever team my best fantasy player is on.</p></div>
+          <div class="qa-item"><p class="qa-q">Season 1 Prediction</p><p class="qa-a">I will three-peat.</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a">My legendary status grows every season.</p></div>
+          <div class="qa-item"><p class="qa-q">How I Got Started</p><p class="qa-a">Don&#39;t have one.</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a">Everyone — I hold the most titles.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patrick Howell -->
+    <div class="manager-card reveal">
+      <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
+        <div class="manager-avatar">PH</div>
+        <div class="manager-meta">
+          <div class="manager-name">Patrick Howell</div>
+          <div class="manager-team">Achaneinthemembrane23</div>
+        </div>
+        <span class="manager-chevron">▾</span>
+      </button>
+      <div class="manager-body">
+        <div class="manager-qa">
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a">Colts</p></div>
+          <div class="qa-item"><p class="qa-q">Season 1 Prediction</p><p class="qa-a">Dietz will kill 3–4 all-stars a year in this league too.</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a">You&#39;re everyone&#39;s &lsquo;get-right&rsquo; game.</p></div>
+          <div class="qa-item"><p class="qa-q">How I Got Started</p><p class="qa-a">Slaying fantasy football in Yahoo leagues since 2009.</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a">The boom-or-bust lineups: either 150 points or 70 — no middle ground. You don&#39;t have a floor, just a trapdoor. Your consistency is consistently bad.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Evan Pozniakoff -->
+    <div class="manager-card reveal">
+      <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
+        <div class="manager-avatar">EP</div>
+        <div class="manager-meta">
+          <div class="manager-name">Evan Pozniakoff</div>
+          <div class="manager-team">SlimReeper23</div>
+        </div>
+        <span class="manager-chevron">▾</span>
+      </button>
+      <div class="manager-body">
+        <div class="manager-qa">
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a">Falcons</p></div>
+          <div class="qa-item"><p class="qa-q">Season 1 Prediction</p><p class="qa-a">3 consecutive championship trophies.</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a">Van Quick, if this turns out to be some pyramid scheme bullshit we&#39;re all coming for you!</p></div>
+          <div class="qa-item"><p class="qa-q">How I Got Started</p><p class="qa-a">Always been good at picking teams. Started when I was captain at recess picking the football teams.</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a">Rogers and Cantrell — it&#39;s on sight with those two.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chris Rogers -->
+    <div class="manager-card reveal">
+      <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
+        <div class="manager-avatar">CR</div>
+        <div class="manager-meta">
+          <div class="manager-name">Chris Rogers</div>
+          <div class="manager-team">Jolly Roger</div>
+        </div>
+        <span class="manager-chevron">▾</span>
+      </button>
+      <div class="manager-body">
+        <div class="manager-qa">
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a pending">Still to submit</p></div>
+          <div class="qa-item"><p class="qa-q">Season 1 Prediction</p><p class="qa-a pending">Still to submit</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a pending">Still to submit</p></div>
+          <div class="qa-item"><p class="qa-q">How I Got Started</p><p class="qa-a pending">Still to submit</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a pending">Still to submit</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aaron Quick -->
+    <div class="manager-card reveal">
+      <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
+        <div class="manager-avatar">AQ</div>
+        <div class="manager-meta">
+          <div class="manager-name">Aaron Quick</div>
+          <div class="manager-team">Coach A_Aron</div>
+        </div>
+        <span class="manager-chevron">▾</span>
+      </button>
+      <div class="manager-body">
+        <div class="manager-qa">
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a">Raiders</p></div>
+          <div class="qa-item"><p class="qa-q">Season 1 Prediction</p><p class="qa-a">I&#39;m going to be a problem.</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a">I don&#39;t trash talk teams below me, so y&#39;all are safe.</p></div>
+          <div class="qa-item"><p class="qa-q">How I Got Started</p><p class="qa-a">Nothing special. Just been playing for longer than I can remember.</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a">Everyone — because I&#39;m a loose cannon.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drew Henderson -->
+    <div class="manager-card reveal">
+      <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
+        <div class="manager-avatar">DH</div>
+        <div class="manager-meta">
+          <div class="manager-name">Drew Henderson</div>
+          <div class="manager-team">BallzDeepManagement</div>
+        </div>
+        <span class="manager-chevron">▾</span>
+      </button>
+      <div class="manager-body">
+        <div class="manager-qa">
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a">Seahawks</p></div>
+          <div class="qa-item"><p class="qa-q">Season 1 Prediction</p><p class="qa-a">Dietzel&#39;s top draft pick will not only stay healthy, but will win MVP.</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a">You guys are starting to look old!</p></div>
+          <div class="qa-item"><p class="qa-q">How I Got Started</p><p class="qa-a">I was supposed to be a mediocre GM in real life, until I injured my knee.</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a">Nobody should be scared, but everyone should exercise caution. Also, Cantrell should be scared.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mike Highsmith -->
+    <div class="manager-card reveal">
+      <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
+        <div class="manager-avatar">MH</div>
+        <div class="manager-meta">
+          <div class="manager-name">Mike Highsmith</div>
+          <div class="manager-team">Real Men of Genius</div>
+        </div>
+        <span class="manager-chevron">▾</span>
+      </button>
+      <div class="manager-body">
+        <div class="manager-qa">
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a">Steelers</p></div>
+          <div class="qa-item"><p class="qa-q">Season 1 Prediction</p><p class="qa-a">The gayest person is going to say that they&#39;re going to win.</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a">You don&#39;t have to be gay to do butt stuff. Just mean.</p></div>
+          <div class="qa-item"><p class="qa-q">How I Got Started</p><p class="qa-a">My gay friend asked me to play. Been playing ever since (no homo).</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a">Everyone. I&#39;m not gay. Just mean.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chad Albright -->
+    <div class="manager-card reveal">
+      <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
+        <div class="manager-avatar">CA</div>
+        <div class="manager-meta">
+          <div class="manager-name">Chad Albright</div>
+          <div class="manager-team">LAChokers</div>
+        </div>
+        <span class="manager-chevron">▾</span>
+      </button>
+      <div class="manager-body">
+        <div class="manager-qa">
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a">Chargers</p></div>
+          <div class="qa-item"><p class="qa-q">Season 1 Prediction</p><p class="qa-a">Any spot but last place.</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a">Let&#39;s be honest, none of us are really that awesome — that&#39;s why we are here…</p></div>
+          <div class="qa-item"><p class="qa-q">How I Got Started</p><p class="qa-a">Played with some goobers from an old job, wanted to try something different. Didn&#39;t expect to join a league where everyone literally jacks off to football stats. I am feeling vulnerable.</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a">Pretty much all of you beautiful weirdos.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- ═══════════ RULES ═══════════ -->
 <section id="rules">
@@ -1642,6 +1978,13 @@ reveals.forEach(el => observer.observe(el));
     tick();
     setInterval(tick, 1000);
   })();
+
+// Manager card toggle
+function toggleManager(btn) {
+  const card = btn.closest('.manager-card');
+  const isOpen = card.classList.toggle('open');
+  btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
 
 </script>
 
