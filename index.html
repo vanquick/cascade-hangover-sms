@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="https://vanquick.github.io/cascade-hangover-sms/images/og-preview.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════
    ROOT & RESET
@@ -33,8 +33,13 @@
   --amber: #d4a534;
   --amber-glow: #d4a53466;
   --gold: #f0c75e;
+  --white: #ffffff;
   --cream: #f5ead6;
   --cream-dim: #c4b89e;
+  --muted: #c4b89e;
+  --bg-deep: #120d0a;
+  --bg-card: rgba(26, 20, 16, 0.88);
+  --border: rgba(212, 165, 52, 0.18);
   --glass-bg: rgba(26, 20, 16, 0.65);
   --glass-border: rgba(212, 165, 52, 0.15);
   --glass-highlight: rgba(212, 165, 52, 0.08);
@@ -921,6 +926,125 @@ section {
   opacity: 0.65;
 }
 
+/* ═══════════════════════════════════════════
+   LEAGUE HUB
+   ═══════════════════════════════════════════ */
+.hub-shell {
+  background:
+    radial-gradient(circle at top, rgba(212,165,52,0.12), transparent 45%),
+    linear-gradient(180deg, rgba(26,20,16,0.92), rgba(13,9,7,0.98));
+  border: 1px solid rgba(212,165,52,0.14);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.28);
+}
+.hub-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.hub-kpi {
+  background: rgba(13,9,7,0.55);
+  border: 1px solid rgba(212,165,52,0.12);
+  border-radius: 10px;
+  padding: 1.1rem 1rem;
+}
+.hub-kpi-label {
+  font-size: 0.68rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.45rem;
+  font-weight: 700;
+}
+.hub-kpi-value {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--white);
+  line-height: 1.1;
+}
+.hub-kpi-note {
+  margin-top: 0.35rem;
+  color: var(--cream-dim);
+  font-size: 0.8rem;
+}
+.hub-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1.25rem;
+}
+.hub-card {
+  background: rgba(13,9,7,0.45);
+  border: 1px solid rgba(212,165,52,0.12);
+  border-radius: 12px;
+  padding: 1.35rem;
+}
+.hub-card-title {
+  font-size: 1.15rem;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+}
+.hub-card-text {
+  color: var(--cream-dim);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.hub-list {
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+.hub-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  border-top: 1px solid rgba(212,165,52,0.08);
+  padding-top: 0.85rem;
+}
+.hub-list li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.hub-list strong {
+  color: var(--cream);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.hub-list span {
+  color: var(--cream-dim);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.hub-tag {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(212,165,52,0.18);
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  color: var(--amber);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.hub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .hub-grid { grid-template-columns: 1fr; }
+  .hub-shell { padding: 1.35rem; }
+}
+@media (max-width: 480px) {
+  .hub-list li { flex-direction: column; }
+}
+
 /* Responsive gauntlet */
 @media (max-width: 768px) {
   .ring-tiers { grid-template-columns: repeat(2, 1fr); }
@@ -1230,9 +1354,9 @@ footer {
   <ul class="nav-links" id="navLinks">
     <li><a href="#draft">Draft</a></li>
     <li><a href="#managers">Managers</a></li>
-    <li><a href="#votes">Open Votes</a></li>
+    <li><a href="#league-hub">League Hub</a></li>
     <li><a href="#rules">Rules</a></li>
-    <li><a href="#gauntlet">The Gauntlet</a></li>
+    <li><a href="#weekly-top-score">Weekly Top Score</a></li>
   </ul>
 </nav>
 
@@ -1278,6 +1402,7 @@ footer {
     <div class="draft-links">
       <a class="draft-link-btn primary" href="https://sleeper.com/draft/nfl/1342293791159115776" target="_blank" rel="noopener">📋 Open Draft Board</a>
       <a class="draft-link-btn secondary" href="https://sleeper.com/leagues/1342293791142313984" target="_blank" rel="noopener">🏆 League Page</a>
+      <a class="draft-link-btn secondary" href="https://discord.gg/a4JkcZkWCd" target="_blank" rel="noopener">💬 Join Discord</a>
     </div>
     <div class="countdown-wrap" id="countdownWrap">
       <p class="countdown-label">Countdown to Draft Day</p>
@@ -1368,10 +1493,10 @@ footer {
 
       <div class="pick-card">
         <span class="pick-num">9</span>
-        <img class="pick-photo" src="images/headshots/chad_albright.jpg" alt="Chad Albright">
+        <div class="pick-photo-placeholder" aria-hidden="true">CW</div>
         <div class="pick-info">
-          <p class="pick-name">Chad Albright</p>
-          <p class="pick-handle">LAChokers</p>
+          <p class="pick-name">Cameron Wagner</p>
+          <p class="pick-handle"><span class="pick-tbd">Team name pending</span></p>
         </div>
       </div>
 
@@ -1393,7 +1518,7 @@ footer {
   <div class="reveal">
     <p class="section-label">Meet the League</p>
     <h2 class="section-title">The Managers</h2>
-    <p class="section-desc">Ten managers. Ten stories. Straight from the Discord intros — click a card to see how they got here, who should be scared, and what they had to say about the rest of you.</p>
+    <p class="section-desc">Ten managers. Ten stories. Straight from the Discord intros and the current owner ledger. Click a card to see how they got here, who should be scared, and what they had to say about the rest of you.</p>
     <div class="section-divider"></div>
   </div>
 
@@ -1588,27 +1713,131 @@ footer {
       </div>
     </div>
 
-    <!-- Chad Albright -->
+    <!-- Cameron Wagner -->
     <div class="manager-card reveal">
       <button class="manager-header" onclick="toggleManager(this)" aria-expanded="false">
-        <div class="manager-avatar">CA</div>
+        <div class="manager-avatar">CW</div>
         <div class="manager-meta">
-          <div class="manager-name">Chad Albright</div>
-          <div class="manager-team">LAChokers</div>
+          <div class="manager-name">Cameron Wagner</div>
+          <div class="manager-team tbd">Intro pending</div>
         </div>
         <span class="manager-chevron">▾</span>
       </button>
       <div class="manager-body">
         <div class="manager-qa">
-          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a">The Los Angeles Chargers, aka the factory of sadness.</p></div>
-          <div class="qa-item"><p class="qa-q">Boldest Prediction</p><p class="qa-a">Any spot but last place.</p></div>
-          <div class="qa-item"><p class="qa-q">Fantasy Football Origin Story</p><p class="qa-a">Played with some goobers from an old job, wanted to try something different. Didn&#39;t expect to join a league where everyone literally jacks off to football stats. I am feeling vulnerable.</p></div>
-          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a">Pretty much all of you beautiful weirdos.</p></div>
-          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a">Let&#39;s be honest, none of us are really that awesome — that&#39;s why we are here…</p></div>
+          <div class="qa-item"><p class="qa-q">Favorite NFL Team</p><p class="qa-a pending">Discord intro still to submit</p></div>
+          <div class="qa-item"><p class="qa-q">Boldest Prediction</p><p class="qa-a pending">Still to submit</p></div>
+          <div class="qa-item"><p class="qa-q">Fantasy Football Origin Story</p><p class="qa-a">Confirmed active owner as of July 30, 2026. Cameron takes the final franchise slot for the 2026 startup.</p></div>
+          <div class="qa-item"><p class="qa-q">Who Should Be Scared</p><p class="qa-a pending">Still to submit</p></div>
+          <div class="qa-item"><p class="qa-q">Trash Talk</p><p class="qa-a pending">Still to submit</p></div>
         </div>
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- ═══════════ LEAGUE HUB ═══════════ -->
+<section id="league-hub">
+  <div class="reveal">
+    <p class="section-label">Discord &amp; League Ops</p>
+    <h2 class="section-title">The League Hub</h2>
+    <p class="section-desc">The Discord server now has a defined operating model: announcements stay clean, trade activity has a home, weekly recap lives in one place, and dues are tracked in public.</p>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="hub-shell reveal">
+    <div class="hub-kpis">
+      <div class="hub-kpi">
+        <p class="hub-kpi-label">Buy-In Locked</p>
+        <p class="hub-kpi-value">$200</p>
+        <p class="hub-kpi-note">Per manager for the 2026 season</p>
+      </div>
+      <div class="hub-kpi">
+        <p class="hub-kpi-label">Collected</p>
+        <p class="hub-kpi-value">$1,500</p>
+        <p class="hub-kpi-note">Updated July 31, 2026</p>
+      </div>
+      <div class="hub-kpi">
+        <p class="hub-kpi-label">Outstanding</p>
+        <p class="hub-kpi-value">$500</p>
+        <p class="hub-kpi-note">Two partials, two unpaid</p>
+      </div>
+      <div class="hub-kpi">
+        <p class="hub-kpi-label">Discord Core</p>
+        <p class="hub-kpi-value">6 lanes</p>
+        <p class="hub-kpi-note">Start here, chat, trading, season, business, history</p>
+      </div>
+    </div>
+
+    <div class="hub-grid">
+      <div class="hub-card">
+        <h3 class="hub-card-title">What Lives in Discord</h3>
+        <p class="hub-card-text">The server now has a clear lane for each type of league activity, so draft prep, trading, weekly recap, prospect talk, and dues don&apos;t all drown each other out in one chat.</p>
+        <ul class="hub-list">
+          <li>
+            <div>
+              <strong>Start Here</strong>
+              <span>`welcome`, `announcements`, `league-rules`, and `schedule-and-deadlines` give every owner one clean onboarding path.</span>
+            </div>
+            <span class="hub-tag">Ops</span>
+          </li>
+          <li>
+            <div>
+              <strong>Trading Block</strong>
+              <span>`trade-block`, `draft-pick-market`, and roster review forums keep buying, selling, and rebuild talk searchable.</span>
+            </div>
+            <span class="hub-tag">Trading</span>
+          </li>
+          <li>
+            <div>
+              <strong>Season Flow</strong>
+              <span>`matchups`, `start-sit`, `waivers-and-faab`, `injury-and-news`, and `weekly-recap` cover the weekly grind.</span>
+            </div>
+            <span class="hub-tag">Season</span>
+          </li>
+          <li>
+            <div>
+              <strong>League Business</strong>
+              <span>`league-votes`, `dues-and-payouts`, `suggestions`, and commissioner-only space keep decisions and money visible.</span>
+            </div>
+            <span class="hub-tag">Business</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="hub-card">
+        <h3 class="hub-card-title">2026 Dues Snapshot</h3>
+        <p class="hub-card-text">Commissioner ledger as of July 31, 2026.</p>
+        <ul class="hub-list">
+          <li>
+            <div>
+              <strong>Paid in Full</strong>
+              <span>Josh Van Quick, Jason Dietzel, Josh Cantrell, Patrick Howell, Cameron Wagner, Evan Pozniakoff</span>
+            </div>
+            <span class="hub-tag">$1,200</span>
+          </li>
+          <li>
+            <div>
+              <strong>Paid $150 / Owes $50</strong>
+              <span>Aaron Quick, Drew Henderson</span>
+            </div>
+            <span class="hub-tag">$300</span>
+          </li>
+          <li>
+            <div>
+              <strong>Still Owes $200</strong>
+              <span>Chris Rogers, Mike Highsmith</span>
+            </div>
+            <span class="hub-tag">$0</span>
+          </li>
+        </ul>
+        <div class="hub-links">
+          <a class="draft-link-btn primary" href="https://discord.gg/a4JkcZkWCd" target="_blank" rel="noopener">Open Discord</a>
+          <a class="draft-link-btn secondary" href="https://sleeper.com/leagues/1342293791142313984" target="_blank" rel="noopener">Open Sleeper</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1655,7 +1884,7 @@ footer {
     </div>
     <div class="rule-card reveal">
       <p class="rule-label">Buy-In</p>
-      <p class="rule-text">$150 per manager, per season.</p>
+      <p class="rule-text">$200 per manager, per season.</p>
     </div>
     <div class="rule-card reveal">
       <p class="rule-label">Last Place Punishment</p>
@@ -1666,12 +1895,12 @@ footer {
 
 <!-- ═══════════ THE GAUNTLET ═══════════ -->
 <div class="gauntlet-wrapper">
-<section id="gauntlet">
+<section id="weekly-top-score">
 
   <div class="reveal">
-    <p class="section-label">Season-Long Challenge System</p>
-    <h2 class="section-title">The Gauntlet</h2>
-    <p class="section-desc">17 weekly challenges. Every manager earns Rings by letting their lineup do the talking. No extra work — just play your team and collect.</p>
+    <p class="section-label">Weekly Payout Tracker</p>
+    <h2 class="section-title">Weekly Top Score</h2>
+    <p class="section-desc">$25 to the highest score every week. Tuesday recap posts hit Discord and this board mirrors the same Sleeper results.</p>
     <div class="section-divider"></div>
   </div>
 
@@ -1679,229 +1908,136 @@ footer {
   <div class="gauntlet-how reveal">
     <div class="gauntlet-how-card">
       <div class="gauntlet-how-icon">📋</div>
-      <p class="gauntlet-how-title">Tuesday</p>
-      <p class="gauntlet-how-text">Commissioner posts the weekly challenge in the league chat.</p>
+      <p class="gauntlet-how-title">Tuesday Recap</p>
+      <p class="gauntlet-how-text">Final scores get posted to Discord on Tuesdays once the week is settled.</p>
     </div>
     <div class="gauntlet-how-card">
-      <div class="gauntlet-how-icon">🏈</div>
-      <p class="gauntlet-how-title">Play Your Team</p>
-      <p class="gauntlet-how-text">No signups required. Hit the criteria with your actual lineup.</p>
+      <div class="gauntlet-how-icon">📡</div>
+      <p class="gauntlet-how-title">Sleeper Source</p>
+      <p class="gauntlet-how-text">No manual scorekeeping. Sleeper is the source of truth for every weekly winner.</p>
     </div>
     <div class="gauntlet-how-card">
-      <div class="gauntlet-how-icon">🔍</div>
-      <p class="gauntlet-how-title">After MNF</p>
-      <p class="gauntlet-how-text">Results verified from box scores. Completions logged to the leaderboard.</p>
+      <div class="gauntlet-how-icon">💸</div>
+      <p class="gauntlet-how-title">$25 Winner</p>
+      <p class="gauntlet-how-text">One highest score each week. One $25 payout. No extra gimmicks.</p>
     </div>
     <div class="gauntlet-how-card">
-      <div class="gauntlet-how-icon">💍</div>
-      <p class="gauntlet-how-title">Earn Rings</p>
-      <p class="gauntlet-how-text">Stack Rings all season. Unlock rewards at 3, 5, 7, and 10.</p>
+      <div class="gauntlet-how-icon">🗓️</div>
+      <p class="gauntlet-how-title">17 Weeks</p>
+      <p class="gauntlet-how-text">This tracker keeps every week on the board from kickoff through Week 17.</p>
     </div>
   </div>
 
-  <!-- Weekly Challenges Table -->
+  <!-- Weekly Scoreboard Table -->
   <div class="reveal" style="margin-bottom: 1rem;">
-    <p class="section-label">The Schedule</p>
-    <h3 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2.25rem);">17 Weekly Challenges</h3>
+    <p class="section-label">The Board</p>
+    <h3 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2.25rem);">17-Week Tracker</h3>
   </div>
   <div class="gauntlet-table-wrap reveal">
     <table class="gauntlet-table">
       <thead>
         <tr>
           <th>Wk</th>
-          <th>Challenge</th>
-          <th>What You Gotta Do</th>
-          <th>Difficulty</th>
+          <th>Winner</th>
+          <th>Team</th>
+          <th>Points</th>
+          <th>Payout</th>
+          <th>Status</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="weekly-top-score-body">
         <tr>
-          <td><span class="challenge-week">01</span></td>
-          <td><span class="challenge-name">Ground &amp; Pound</span></td>
-          <td>Start 2 RBs who each score a TD</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">02</span></td>
-          <td><span class="challenge-name">Gunslinger</span></td>
-          <td>Your QB throws for 300+ yards in a win</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">03</span></td>
-          <td><span class="challenge-name">Spotlight Player</span></td>
-          <td>A player you started scores 25+ points</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">04</span></td>
-          <td><span class="challenge-name">Nail Biter</span></td>
-          <td>Win your matchup by 3 points or less</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">05</span></td>
-          <td><span class="challenge-name">Waiver Wire Hero</span></td>
-          <td>Start a waiver pickup (added that week) who outscores a starter</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">06</span></td>
-          <td><span class="challenge-name">Tight End Takeover</span></td>
-          <td>Your TE outscores your opponent's TE by 10+ points</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">07</span></td>
-          <td><span class="challenge-name">Blowout Week</span></td>
-          <td>Score 150+ total points in a week</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">08</span></td>
-          <td><span class="challenge-name">Comeback Kid</span></td>
-          <td>Win after being projected to lose by 15+ points</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">09</span></td>
-          <td><span class="challenge-name">Hat Trick</span></td>
-          <td>Have 3 players score 20+ in the same week</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">10</span></td>
-          <td><span class="challenge-name">Rookie of the Week</span></td>
-          <td>Start a rookie (taxi-eligible) who scores 15+</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">11</span></td>
-          <td><span class="challenge-name">Overachiever</span></td>
-          <td>Win with your lowest-projected starter outscoring their projection by 10+</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">12</span></td>
-          <td><span class="challenge-name">QB Controversy</span></td>
-          <td>Your Superflex QB2 outscores your QB1</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">13</span></td>
-          <td><span class="challenge-name">Ride or Die</span></td>
-          <td>Hold the same starting lineup as last week and win</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">14</span></td>
-          <td><span class="challenge-name">Photo Finish</span></td>
-          <td>Win by the closest margin of the week (nearest to 1 decimal point)</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">15</span></td>
-          <td><span class="challenge-name">Trash Talk King</span></td>
-          <td>Post the best trash talk of the week — league vote decides</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star empty">★</span><span class="star empty">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">16</span></td>
-          <td><span class="challenge-name">Crystal Ball</span></td>
-          <td>Predict your exact score within 5 points before kickoff</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></div></td>
-        </tr>
-        <tr>
-          <td><span class="challenge-week">17</span></td>
-          <td><span class="challenge-name">Lockdown Defense</span></td>
-          <td>Hold your opponent under 90 total points</td>
-          <td><div class="difficulty-stars"><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span></div></td>
+          <td colspan="6">Loading Sleeper tracker...</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Ring Rewards -->
+  <!-- Tracker Summary -->
   <div class="reveal" style="margin-bottom: 1.5rem;">
-    <p class="section-label">Rewards</p>
-    <h3 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2.25rem);">Ring Milestones</h3>
-    <p class="section-desc" style="margin-bottom: 1.5rem;">Rewards stack — hit 10 rings and you've earned them all. Multiple managers can unlock each tier.</p>
+    <p class="section-label">Season Snapshot</p>
+    <h3 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2.25rem);">Payout Math</h3>
+    <p class="section-desc" style="margin-bottom: 1.5rem;">Simple setup. Highest score wins the week. The board updates as the season moves.</p>
   </div>
   <div class="ring-tiers reveal">
     <div class="ring-tier-card">
-      <div class="ring-count">3</div>
-      <div class="ring-icon-row">💍💍💍</div>
-      <p class="ring-label">Bronze Run</p>
-      <p class="ring-reward">+$10 FAAB added to your budget immediately</p>
+      <div class="ring-count">$25</div>
+      <div class="ring-icon-row">🏆</div>
+      <p class="ring-label">Weekly Payout</p>
+      <p class="ring-reward">Highest score for the week gets the cash.</p>
     </div>
     <div class="ring-tier-card">
-      <div class="ring-count">5</div>
-      <div class="ring-icon-row">💍💍💍💍💍</div>
-      <p class="ring-label">Five-Ring Club</p>
-      <p class="ring-reward">Your choice: Taxi squad promotion <em>or</em> +$10 more FAAB</p>
+      <div class="ring-count">17</div>
+      <div class="ring-icon-row">📆</div>
+      <p class="ring-label">Weeks Tracked</p>
+      <p class="ring-reward">Week-by-week winners stay logged here and in Discord.</p>
     </div>
     <div class="ring-tier-card">
-      <div class="ring-count">7</div>
-      <div class="ring-icon-row">💍💍💍💍💍💍💍</div>
-      <p class="ring-label">Ring Leader</p>
-      <p class="ring-reward">Supplemental 5th-round rookie draft pick in the next draft</p>
+      <div class="ring-count">$425</div>
+      <div class="ring-icon-row">💵</div>
+      <p class="ring-label">Season Total</p>
+      <p class="ring-reward">Seventeen $25 payouts if every week gets paid.</p>
     </div>
     <div class="ring-tier-card top-tier">
-      <div class="ring-count">10</div>
-      <div class="ring-icon-row">💍💍💍💍💍💍💍💍💍💍</div>
-      <p class="ring-label">Full Gauntlet</p>
-      <p class="ring-reward">Reward being finalized by <a href="#votes" style="color: var(--amber); text-decoration: underline;">league vote</a></p>
+      <div class="ring-count" id="weekly-paid-total">$0</div>
+      <div class="ring-icon-row">📈</div>
+      <p class="ring-label">Paid So Far</p>
+      <p class="ring-reward" id="weekly-latest-winner">Season opens after the draft.</p>
     </div>
   </div>
 
-  <!-- Gauntlet Champion -->
+  <!-- Tuesday Recap Rules -->
   <div class="gauntlet-champion reveal">
-    <span class="champion-crown">👑</span>
-    <h3 class="champion-title">Gauntlet Champion</h3>
-    <p class="champion-subtitle">Most Rings at Season End — One Winner Takes All</p>
+    <span class="champion-crown">🏁</span>
+    <h3 class="champion-title">Tuesday Recap</h3>
+    <p class="champion-subtitle">Draft Saturday, August 1, 2026 • Weekly Winner Posts Start Once Games Count</p>
     <div class="champion-perks">
       <div class="champion-perk">
         <span class="champion-perk-icon">🏆</span>
-        <p class="champion-perk-text"><strong>Grand Prize</strong> — To be finalized by <a href="#votes" style="color: var(--amber); text-decoration: underline;">league vote</a> (cash bounty, bonus rookie pick, or double FAAB next season)</p>
+        <p class="champion-perk-text"><strong>What Wins</strong> — Highest Sleeper score for the week. Clean and simple.</p>
       </div>
       <div class="champion-perk">
-        <span class="champion-perk-icon">📈</span>
-        <p class="champion-perk-text"><strong>Draft Position Bump</strong> — Swap your rookie draft spot up 2 positions</p>
+        <span class="champion-perk-icon">📬</span>
+        <p class="champion-perk-text"><strong>Where It Lands</strong> — Discord gets the Tuesday winner post, and this board reflects the same result.</p>
       </div>
       <div class="champion-perk">
-        <span class="champion-perk-icon">🎖️</span>
-        <p class="champion-perk-text"><strong>Gauntlet Champion Title</strong> — Permanent record in league history</p>
+        <span class="champion-perk-icon">📊</span>
+        <p class="champion-perk-text"><strong>What Gets Tracked</strong> — Winner, team name, points, payout, and whether the week is final.</p>
       </div>
     </div>
     <p class="champion-tiebreaker">
-      <strong>Tiebreaker:</strong> Most rings in a single week → head-to-head record → coin flip in the group chat
+      <strong>Status:</strong> The Gauntlet is out. Weekly top score is the running side prize for the 2026 season.
     </p>
   </div>
 
 </section>
 </div>
 
-<!-- ═══════════ VOTES ═══════════ -->
-<section id="votes">
+<!-- ═══════════ SEASON NOTES ═══════════ -->
+<section id="season-notes">
   <div class="reveal">
-    <p class="section-label">Action Required</p>
-    <h2 class="section-title">Open Votes</h2>
-    <p class="section-desc">Two live polls in Discord. Cast your vote before they close.</p>
+    <p class="section-label">Season Notes</p>
+    <h2 class="section-title">What Changed</h2>
+    <p class="section-desc">Three live updates shape the 2026 season: the Gauntlet is gone, the buy-in is $200, and the Discord server now has a structured home for league business.</p>
     <div class="section-divider"></div>
   </div>
   <div class="votes-grid">
-    <a href="https://discord.com/channels/555597332767309839/1483171902477570229/1524111441077080196" target="_blank" rel="noopener" class="vote-link">
-      <div class="vote-card reveal">
-        <p class="vote-question">🏆 10-Ring Reward</p>
-        <p class="vote-options">Replace the extended trade deadline. Choose: $25 cash bounty, bonus 4th-round rookie pick, or +$25 FAAB one-time boost.</p>
-      </div>
-    </a>
-    <a href="https://discord.com/channels/555597332767309839/1483171902477570229/1524105838698954803" target="_blank" rel="noopener" class="vote-link">
-      <div class="vote-card reveal">
-        <p class="vote-question">👑 Gauntlet Champion Grand Prize</p>
-        <p class="vote-options">Season-end reward for most rings. Choose: cash bounty, bonus 3rd-round rookie pick, or double FAAB next season.</p>
-      </div>
-    </a>
+    <div class="vote-card reveal">
+      <p class="vote-question">🏆 Weekly Top Score</p>
+      <p class="vote-options">$25 goes to the highest scorer each week. Tuesday Discord updates come straight from Sleeper.</p>
+    </div>
+    <div class="vote-card reveal">
+      <p class="vote-question">💰 2026 Buy-In</p>
+      <p class="vote-options">$200 per manager. Current ledger: $1,250 collected, $750 still outstanding.</p>
+    </div>
+    <div class="vote-card reveal">
+      <p class="vote-question">🧑‍💼 Current Owner List</p>
+      <p class="vote-options">Cameron Wagner now holds the final active franchise spot for the 2026 startup.</p>
+    </div>
+    <div class="vote-card reveal">
+      <p class="vote-question">📍 Source of Truth</p>
+      <p class="vote-options">Sleeper handles scoring. Discord handles recap, trading lanes, dues, and league votes. This site mirrors the same running tracker.</p>
+    </div>
   </div>
 </section>
 
@@ -1954,6 +2090,210 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => observer.observe(el));
+
+  // ─── Weekly Top Score Tracker
+  (function() {
+    var leagueId = '1342293791142313984';
+    var totalWeeks = 17;
+    var payoutPerWeek = 25;
+    var trackerBody = document.getElementById('weekly-top-score-body');
+    var paidTotal = document.getElementById('weekly-paid-total');
+    var latestWinner = document.getElementById('weekly-latest-winner');
+
+    function formatPoints(value) {
+      return Number(value).toFixed(2);
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function renderRows(rows) {
+      trackerBody.innerHTML = rows.map(function(row) {
+        return [
+          '<tr>',
+          '<td><span class="challenge-week">' + row.week + '</span></td>',
+          '<td><span class="challenge-name">' + escapeHtml(row.winner) + '</span></td>',
+          '<td>' + escapeHtml(row.team) + '</td>',
+          '<td>' + escapeHtml(row.points) + '</td>',
+          '<td>' + escapeHtml(row.payout) + '</td>',
+          '<td>' + escapeHtml(row.status) + '</td>',
+          '</tr>'
+        ].join('');
+      }).join('');
+    }
+
+    function renderPending(statusText) {
+      var rows = [];
+      for (var week = 1; week <= totalWeeks; week += 1) {
+        rows.push({
+          week: String(week).padStart(2, '0'),
+          winner: 'TBD',
+          team: 'Season has not started',
+          points: '--',
+          payout: '$25',
+          status: statusText
+        });
+      }
+      renderRows(rows);
+      paidTotal.textContent = '$0';
+      latestWinner.textContent = 'Season opens after the Saturday, August 1, 2026 draft.';
+    }
+
+    function getJson(url) {
+      return fetch(url).then(function(response) {
+        if (!response.ok) {
+          throw new Error('Request failed: ' + response.status);
+        }
+        return response.json();
+      });
+    }
+
+    function getTeamName(user) {
+      if (user && user.metadata && user.metadata.team_name && user.metadata.team_name.trim()) {
+        return user.metadata.team_name.trim();
+      }
+      return (user && (user.display_name || user.username)) || 'Unknown Team';
+    }
+
+    function getDisplayName(user, rosterId) {
+      return (user && (user.display_name || user.username)) || ('Roster #' + rosterId);
+    }
+
+    function getUpperWeekBound(league, state) {
+      if (league.status === 'complete') {
+        return totalWeeks;
+      }
+      return Math.min(
+        totalWeeks,
+        Math.max(
+          Number((league.settings && league.settings.leg) || 1),
+          Number((state && state.display_week) || 1),
+          Number((state && state.leg) || 1),
+          Number((state && state.week) || 1)
+        )
+      );
+    }
+
+    Promise.all([
+      getJson('https://api.sleeper.app/v1/league/' + leagueId),
+      getJson('https://api.sleeper.app/v1/league/' + leagueId + '/users'),
+      getJson('https://api.sleeper.app/v1/league/' + leagueId + '/rosters'),
+      getJson('https://api.sleeper.app/v1/state/nfl')
+    ]).then(function(results) {
+      var league = results[0];
+      var users = results[1];
+      var rosters = results[2];
+      var nflState = results[3];
+
+      if (league.status === 'pre_draft' || league.status === 'drafting') {
+        renderPending('Opens after draft');
+        return;
+      }
+
+      var ownerLookup = {};
+      users.forEach(function(user) {
+        ownerLookup[user.user_id] = user;
+      });
+
+      var rosterLookup = {};
+      rosters.forEach(function(roster) {
+        rosterLookup[roster.roster_id] = roster;
+      });
+
+      var upperWeekBound = getUpperWeekBound(league, nflState);
+      var requests = [];
+      for (var week = 1; week <= upperWeekBound; week += 1) {
+        requests.push(
+          getJson('https://api.sleeper.app/v1/league/' + leagueId + '/matchups/' + week)
+            .catch(function() { return []; })
+        );
+      }
+
+      return Promise.all(requests).then(function(matchupSets) {
+        var winnersByWeek = {};
+
+        matchupSets.forEach(function(matchups, index) {
+          var weekNumber = index + 1;
+          var scoredRows = (matchups || [])
+            .filter(function(row) {
+              return typeof row.points === 'number' && row.points > 0;
+            })
+            .sort(function(a, b) {
+              return b.points - a.points;
+            });
+
+          if (!scoredRows.length) {
+            return;
+          }
+
+          var topRow = scoredRows[0];
+          var tiedRows = scoredRows.filter(function(row) {
+            return row.points === topRow.points;
+          });
+
+          winnersByWeek[weekNumber] = {
+            winner: tiedRows.map(function(row) {
+              var tiedRoster = rosterLookup[row.roster_id];
+              var tiedOwner = tiedRoster ? ownerLookup[tiedRoster.owner_id] : null;
+              return getDisplayName(tiedOwner, row.roster_id);
+            }).join(' / '),
+            team: tiedRows.length > 1 ? 'Tie at the top' : getTeamName(ownerLookup[(rosterLookup[topRow.roster_id] || {}).owner_id]),
+            points: formatPoints(topRow.points),
+            tied: tiedRows.length > 1
+          };
+        });
+
+        var latestCompletedWeek = 0;
+        var completedWeeks = 0;
+        var rows = [];
+
+        for (var rowWeek = 1; rowWeek <= totalWeeks; rowWeek += 1) {
+          var winner = winnersByWeek[rowWeek];
+          if (winner) {
+            completedWeeks += 1;
+            latestCompletedWeek = rowWeek;
+            rows.push({
+              week: String(rowWeek).padStart(2, '0'),
+              winner: winner.winner,
+              team: winner.team,
+              points: winner.points,
+              payout: '$25',
+              status: winner.tied ? 'Tied' : 'Final'
+            });
+          } else {
+            rows.push({
+              week: String(rowWeek).padStart(2, '0'),
+              winner: 'TBD',
+              team: rowWeek <= upperWeekBound ? 'Awaiting final scores' : 'Upcoming',
+              points: '--',
+              payout: '$25',
+              status: rowWeek <= upperWeekBound ? 'Pending' : 'Upcoming'
+            });
+          }
+        }
+
+        renderRows(rows);
+        paidTotal.textContent = '$' + (completedWeeks * payoutPerWeek);
+        if (latestCompletedWeek > 0) {
+          var latest = winnersByWeek[latestCompletedWeek];
+          latestWinner.textContent = latest.tied
+            ? 'Latest result: Week ' + latestCompletedWeek + ' ended tied at ' + latest.points + ' points.'
+            : 'Latest winner: ' + latest.winner + ' took Week ' + latestCompletedWeek + ' with ' + latest.points + ' points.';
+        } else {
+          latestWinner.textContent = 'No weekly winner yet. The tracker fills after the first completed scoring week.';
+        }
+      });
+    }).catch(function() {
+      renderPending('Tracker unavailable');
+      latestWinner.textContent = 'Sleeper tracker could not be loaded right now.';
+    });
+  })();
 
   // ─── Draft Countdown
   (function() {
